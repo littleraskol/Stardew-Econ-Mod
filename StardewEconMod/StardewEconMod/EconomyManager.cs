@@ -126,7 +126,7 @@ namespace StardewEconMod
                 {
                     isShopping = false;
 
-                    LogIt($"Couldn't cast {e.NewMenu} as ShopMenu, Player shopping = {isShopping}.");
+                    LogIt($"Couldn't cast '{e.NewMenu}' as ShopMenu, Player shopping = {isShopping}.");
 
                     return;
                 }
