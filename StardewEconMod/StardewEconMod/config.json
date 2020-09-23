@@ -1,0 +1,5 @@
+{
+  "DoSupplyAndDemand": true,
+  "DoMarketFluxuations": true,
+  "VerboseMode": false
+}

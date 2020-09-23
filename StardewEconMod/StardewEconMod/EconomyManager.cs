@@ -19,8 +19,17 @@ namespace StardewEconMod
         /// <summary>Stable player reference.</summary>
         private Farmer myPlayer;
 
+        /// <summary>Stable configuration reference.</summary>
+        private EconConfig myConfig;
+
         /// <summary>Controls ultra crunchy diagnostic output.</summary>
         private bool verbose;
+
+        /// <summary>Whether to do the player commerce based supply and demand stuff.</summary>
+        private bool doingSupplyDemand;
+
+        /// <summary>Whether to do random market forces changing prices.</summary>
+        private bool doingMarketFlux;
 
         /// <summary>Control flag used to tell if the player is in a shop menu.</summary>
         private bool isShopping;
@@ -41,6 +50,7 @@ namespace StardewEconMod
             isShopping = false;
             nonShopShops = new string[3] { "Furniture Catalogue", "Catalogue", "Dresser" };
 
+            myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
             myHelper.Events.Display.MenuChanged += HandleShopMenu;
         }
@@ -51,6 +61,16 @@ namespace StardewEconMod
         void LogIt(string msg, LogLevel lvl = LogLevel.Trace)
         {
             if (verbose) Monitor.Log(msg, lvl);
+        }
+
+        /// <summary>Initial configuration and etc.</summary>
+        private void StartupTasks(object sender, GameLaunchedEventArgs e)
+        {
+            myConfig = myHelper.ReadConfig<EconConfig>();
+
+            verbose = myConfig.VerboseMode;
+            doingSupplyDemand = myConfig.DoSupplyAndDemand;
+            doingMarketFlux = myConfig.DoMarketFluxuations;
         }
 
         /// <summary>Does everything necessary for the mod once the save loads.</summary>
