@@ -7,8 +7,8 @@
     <ProjectGuid>{AB830082-81D5-4BC9-B835-0C90836C0978}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sterdew_Econ_Mod</RootNamespace>
-    <AssemblyName>Sterdew-Econ-Mod</AssemblyName>
+    <RootNamespace>StardewEconMod</RootNamespace>
+    <AssemblyName>StardewEconMod</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EconConfig.cs" />
     <Compile Include="EconomyManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
