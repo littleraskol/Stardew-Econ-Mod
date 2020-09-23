@@ -89,8 +89,8 @@ namespace StardewEconMod
             }
 
             api.RegisterModConfig(ModManifest, () => myConfig = new EconConfig(), () => Helper.WriteConfig(myConfig));
-            api.RegisterSimpleOption(ModManifest, "Verbose Mode", "This turns on finely detailed debug messages. Don't set if you don't need it (you probably do not need it).", () => myConfig.VerboseMode, (bool val) => myConfig.VerboseMode = val);
             api.RegisterSimpleOption(ModManifest, "Supply and Demand", "Whether to monitor and adapt to the player's impact on supply and demand via sales and purchases.", () => myConfig.DoSupplyAndDemand, (bool val) => myConfig.DoSupplyAndDemand = val);
+            api.RegisterSimpleOption(ModManifest, "Verbose Mode", "This turns on finely detailed debug messages. Don't set if you don't need it (you probably do not need it).", () => myConfig.VerboseMode, (bool val) => myConfig.VerboseMode = val);
         }
 
         // *** EVENT HANDLING METHODS ***
@@ -107,6 +107,7 @@ namespace StardewEconMod
         private void LoadTasks(object sender, SaveLoadedEventArgs e)
         {
             myPlayer = Game1.player;
+            lastPlayerMoney = myPlayer.Money;
 
             RefreshConfig();
         }
@@ -120,10 +121,10 @@ namespace StardewEconMod
             {
                 //NOTE: Not really a tragedy if we do stuff here in something other than a shop, just a waste of time down the line.
 
-                //Store the menu as a shop so we can act on it as needed.                
+                //Store the menu as a shop so we can act on it as needed.
                 ShopMenu shop = e.NewMenu as ShopMenu;
 
-                //If this cannot be treated as a shop (not a shop?) return
+                //If this cannot be treated as a shop (not a shop?) return.
                 if (shop == null)
                 {
                     isShopping = false;
@@ -178,28 +179,50 @@ namespace StardewEconMod
             {
                 LogIt("Inventory change detected while shopping.");
 
-                Item addedItem = e.Added as Item;
-                Item remedItem = e.Removed as Item;
-                ItemStackSizeChange changedStack = e.Removed as ItemStackSizeChange;
+                Item[] addedItems = e.Added as Item[];
+                Item[] remedItems = e.Removed as Item[];
+                ItemStackSizeChange[] changedStacks = e.QuantityChanged as ItemStackSizeChange[];
 
-                if (addedItem != null)
-                {
-                    LogIt($"Added: {addedItem}.");
-                }
+                List<TransactionTicket> tickets = new List<TransactionTicket>();
 
-                if (remedItem != null)
-                {
-                    LogIt($"Removed: {remedItem}.");
-                }
 
-                if (changedStack != null)
+                if (addedItems != null && addedItems.Length > 0)
                 {
-                    LogIt($"Changed: {changedStack.Item} from {changedStack.OldSize} to {changedStack.NewSize} (by {changedStack.NewSize - changedStack.OldSize}).");
+                    foreach (Item i in addedItems)
+                    {
+                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()})");
+                        
+                        tickets.Add(new TransactionTicket(i, i.Stack));
+                    }
                 }
+                else if (changedStacks != null && changedStacks.Length > 0)
+                {
+                    foreach (ItemStackSizeChange i in changedStacks)
+                    {
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: ${i.Item.salePrice()}) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
+                        
+                        tickets.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
+                    }
+                }
+                else if (remedItems != null && remedItems.Length > 0)
+                {
+                    foreach (Item i in remedItems)
+                    {
+                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()}).");
+                        
+                        tickets.Add(new TransactionTicket(i, (-1*i.Stack)));
+                    }
+                }
+                else LogIt("Inventory changed without added, removed, or changed stacks?", LogLevel.Warn);
 
                 if (myPlayer.Money != lastPlayerMoney)
                 {
-                    LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {lastPlayerMoney - myPlayer.Money}).");
+                    LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {myPlayer.Money - lastPlayerMoney}).");
+
+                    foreach (TransactionTicket t in tickets)
+                    {
+                        LogIt($"TBD: Handle new transaction '{t}'");
+                    }
 
                     lastPlayerMoney = myPlayer.Money;
                 }
