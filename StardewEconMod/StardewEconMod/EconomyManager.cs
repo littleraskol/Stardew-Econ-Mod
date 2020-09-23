@@ -144,7 +144,7 @@ namespace StardewEconMod
                 {
                     isShopping = false;
 
-                    LogIt($"Detected possible 'object lacks field' exception:{ex.Message}", LogLevel.Warn);
+                    LogIt($"Detected possible 'object lacks field' exception: {ex.Message}", LogLevel.Warn);
 
                     return;
                 }
@@ -166,7 +166,7 @@ namespace StardewEconMod
             else
             {
                 isShopping = false;    //Cannot possibly be shopping if there's no menu (i.e., the menu closed)
-                LogIt($"{e.NewMenu} is not a ShopMenu, Player shopping = {isShopping}.");
+                LogIt($"No menu loaded, Player shopping = {isShopping}.");
             }
         }
     }
