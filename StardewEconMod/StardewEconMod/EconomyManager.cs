@@ -53,6 +53,7 @@ namespace StardewEconMod
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
             myHelper.Events.Display.MenuChanged += HandleShopMenu;
+            myHelper.Events.Player.InventoryChanged += CheckForSaleOrPurchase;
 
             Monitor.Log("Stardew Economy Mod => Initialized", LogLevel.Info);
         }
@@ -89,6 +90,7 @@ namespace StardewEconMod
 
             api.RegisterModConfig(ModManifest, () => myConfig = new EconConfig(), () => Helper.WriteConfig(myConfig));
             api.RegisterSimpleOption(ModManifest, "Verbose Mode", "This turns on finely detailed debug messages. Don't set if you don't need it (you probably do not need it).", () => myConfig.VerboseMode, (bool val) => myConfig.VerboseMode = val);
+            api.RegisterSimpleOption(ModManifest, "Supply and Demand", "Whether to monitor and adapt to the player's impact on supply and demand via sales and purchases.", () => myConfig.DoSupplyAndDemand, (bool val) => myConfig.DoSupplyAndDemand = val);
         }
 
         // *** EVENT HANDLING METHODS ***
@@ -136,7 +138,7 @@ namespace StardewEconMod
                 {
                     if (myHelper.Reflection.GetField<bool>(shop, "_isStorageShop").GetValue()) return;
                 }
-                //This gets thrown when the object lacks the field we asked for.
+                //Thrown when the object lacks the field we asked for.
                 //This shouldn't happen because we should only reach this point if dealing with a ShopMenu, but...
                 catch (InvalidOperationException ex)
                 {
@@ -165,6 +167,50 @@ namespace StardewEconMod
             {
                 isShopping = false;    //Cannot possibly be shopping if there's no menu (i.e., the menu closed)
                 LogIt($"No menu loaded, Player shopping = {isShopping}.");
+            }
+        }
+
+        /// <summary>Attempts to detect whether a change in player inventory means a sale has occurred, and handle it.</summary>
+        private void CheckForSaleOrPurchase(object sender, InventoryChangedEventArgs e)
+        {
+            //Everything here is about the supply/demand system and requires the player be shopping.
+            if (doingSupplyDemand && isShopping)
+            {
+                LogIt("Inventory change detected while shopping.");
+
+                Item addedItem = e.Added as Item;
+                Item remedItem = e.Removed as Item;
+                ItemStackSizeChange changedStack = e.Removed as ItemStackSizeChange;
+
+                if (addedItem != null)
+                {
+                    LogIt($"Added: {addedItem}.");
+                }
+
+                if (remedItem != null)
+                {
+                    LogIt($"Removed: {remedItem}.");
+                }
+
+                if (changedStack != null)
+                {
+                    LogIt($"Changed: {changedStack.Item} from {changedStack.OldSize} to {changedStack.NewSize} (by {changedStack.NewSize - changedStack.OldSize}).");
+                }
+
+                if (myPlayer.Money != lastPlayerMoney)
+                {
+                    LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {lastPlayerMoney - myPlayer.Money}).");
+
+                    lastPlayerMoney = myPlayer.Money;
+                }
+                else
+                {
+                    LogIt($"No money change has occurred, likely no sale or purchase occurred.");
+                }
+            }
+            else
+            {
+                LogIt("Inventory change detected.");
             }
         }
     }
