@@ -53,6 +53,8 @@ namespace StardewEconMod
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
             myHelper.Events.Display.MenuChanged += HandleShopMenu;
+
+            Monitor.Log("Stardew Economy Mod => Initialized", LogLevel.Info);
         }
 
         // *** INTERNAL METHODS ***
@@ -104,6 +106,8 @@ namespace StardewEconMod
         /// <summary>Attempts to detect player use of a shop to keep track of changes in player money.</summary>
         private void HandleShopMenu(object sender, MenuChangedEventArgs e)
         {
+            LogIt($"Entered/Exited Menu: {e.NewMenu}, Previous Menu: {e.OldMenu}");
+
             if (e.NewMenu != null)
             {
                 //NOTE: Not really a tragedy if we do stuff here in something other than a shop, just a waste of time down the line.
