@@ -67,6 +67,14 @@ namespace StardewEconMod
             if (verbose) Monitor.Log(msg, lvl);
         }
 
+        /// <summary>Reloads values from config file.</summary>
+        void RefreshConfig()
+        {
+            verbose = myConfig.VerboseMode;
+            doingSupplyDemand = myConfig.DoSupplyAndDemand;
+            doingMarketFlux = myConfig.DoMarketFluxuations;
+        }
+
         /// <summary>Sets up the in-game mod config menu.</summary>
         private void TryLoadingGMCM()
         {
@@ -90,9 +98,7 @@ namespace StardewEconMod
         {
             myConfig = myHelper.ReadConfig<EconConfig>();
 
-            verbose = myConfig.VerboseMode;
-            doingSupplyDemand = myConfig.DoSupplyAndDemand;
-            doingMarketFlux = myConfig.DoMarketFluxuations;
+            RefreshConfig();
 
             TryLoadingGMCM();
         }
@@ -101,6 +107,8 @@ namespace StardewEconMod
         private void LoadTasks(object sender, SaveLoadedEventArgs e)
         {
             myPlayer = Game1.player;
+
+            RefreshConfig();
         }
 
         /// <summary>Attempts to detect player use of a shop to keep track of changes in player money.</summary>
