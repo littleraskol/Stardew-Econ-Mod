@@ -55,6 +55,8 @@ namespace StardewEconMod
             myHelper.Events.Display.MenuChanged += HandleShopMenu;
         }
 
+        // *** INTERNAL METHODS ***
+
         /// <summary>Controlled logging.</summary>
         /// <param name="msg">The message to log.</param>
         /// <param name="lvl">The desired log level.</param>
@@ -62,6 +64,24 @@ namespace StardewEconMod
         {
             if (verbose) Monitor.Log(msg, lvl);
         }
+
+        /// <summary>Sets up the in-game mod config menu.</summary>
+        private void TryLoadingGMCM()
+        {
+            //See if we can find GMCM, quit if not.
+            var api = Helper.ModRegistry.GetApi<GenericModConfigMenu.GenericModConfigMenuAPI>("spacechase0.GenericModConfigMenu");
+
+            if (api == null)
+            {
+                Monitor.Log("Unable to load GMCM API.", LogLevel.Info);
+                return;
+            }
+
+            api.RegisterModConfig(ModManifest, () => myConfig = new EconConfig(), () => Helper.WriteConfig(myConfig));
+            api.RegisterSimpleOption(ModManifest, "Verbose Mode", "This turns on finely detailed debug messages. Don't set if you don't need it (you probably do not need it).", () => myConfig.VerboseMode, (bool val) => myConfig.VerboseMode = val);
+        }
+
+        // *** EVENT HANDLING METHODS ***
 
         /// <summary>Initial configuration and etc.</summary>
         private void StartupTasks(object sender, GameLaunchedEventArgs e)
@@ -71,6 +91,8 @@ namespace StardewEconMod
             verbose = myConfig.VerboseMode;
             doingSupplyDemand = myConfig.DoSupplyAndDemand;
             doingMarketFlux = myConfig.DoMarketFluxuations;
+
+            TryLoadingGMCM();
         }
 
         /// <summary>Does everything necessary for the mod once the save loads.</summary>
