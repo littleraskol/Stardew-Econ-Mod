@@ -98,8 +98,6 @@ namespace StardewEconMod
         {
             myConfig = myHelper.ReadConfig<EconConfig>();
 
-            RefreshConfig();
-
             TryLoadingGMCM();
         }
 
