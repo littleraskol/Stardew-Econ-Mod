@@ -112,7 +112,7 @@ namespace StardewEconMod
         /// <summary>Attempts to detect player use of a shop to keep track of changes in player money.</summary>
         private void HandleShopMenu(object sender, MenuChangedEventArgs e)
         {
-            LogIt($"Entered/Exited Menu: {e.NewMenu}, Previous Menu: {e.OldMenu}");
+            LogIt($"Entered/Exited Menu: '{e.NewMenu}', Previous Menu: '{e.OldMenu}'");
 
             if (e.NewMenu != null)
             {
