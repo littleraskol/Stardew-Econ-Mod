@@ -1,0 +1,10 @@
+{
+  "Name": "Stardew Economy Mod",
+  "Author": "littleraskol",
+  "Version": "0.0.1",
+  "Description": "Provides a player-focused simulation of markets, supply and demand, and more.",
+  "UniqueID": "littleraskol.SDVEconMod092320",
+  "EntryDll": "StardewEconMod.dll",
+  "MinimumApiVersion": "3.0.0",
+  "UpdateKeys": []
+}
