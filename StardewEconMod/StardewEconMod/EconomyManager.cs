@@ -108,7 +108,9 @@ namespace StardewEconMod
         private double getModifierFor(Item keyItem, bool playerBuying = true)
         {
             LogIt($"TBD: Actually calculate modifier for {keyItem.Name}");
-            return 1.0;
+            if (playerBuying) return 1.5;
+            else return 0.5;
+            //return 1.0;
         }
 
         // *** EVENT HANDLING METHODS ***
@@ -187,27 +189,31 @@ namespace StardewEconMod
                     int p;
                     foreach (Item i in myPlayer.Items)
                     {
-                        LogIt($"Checking player inventory item '{i}' for price modification.");
+                        LogIt($"Checking player inventory item '{i.DisplayName}' for price modification.");
                         if (i is StardewValley.Object)
                         {
                             p = (i as StardewValley.Object).Price;
                             salePriceChangeRecord.Add(i, p);
-                            LogIt($"'{i}' is an Object costing ${p}");
+                            LogIt($"'{i.DisplayName}' is an Object costing ${p}");
 
                             (i as StardewValley.Object).Price = (int)(p * getModifierFor(i, false));
-                            LogIt($"'{i}' now costs ${(i as StardewValley.Object).Price}");
+                            LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
                         }
                     }
 
                     //The first number of the int[] is the price.
-                    Dictionary<Item, int[]> inventory = myHelper.Reflection.GetField<Dictionary<Item, int[]>>(shop, "itemPriceAndStock").GetValue();
+                    Dictionary<ISalable, int[]> inventory = myHelper.Reflection.GetField<Dictionary<ISalable, int[]>>(shop, "itemPriceAndStock").GetValue();
 
                     // Change inventory prices
-                    foreach (KeyValuePair<Item, int[]> kvp in inventory)
+                    foreach (KeyValuePair<ISalable, int[]> kvp in inventory)
                     {
-                        LogIt($"Checking shop inventory item '{kvp.Key}' for price modification, currently costs {kvp.Value[0]}");
-                        kvp.Value.SetValue(kvp.Value[0] * getModifierFor(kvp.Key), 0);
-                        LogIt($"'{kvp.Key}' now costs {kvp.Value[0]}");
+                        LogIt($"Checking shop inventory item '{kvp.Key.DisplayName}' for price modification, currently costs {kvp.Value[0]}");
+                        if (kvp.Key is Item)
+                        {
+                            p = (int)(kvp.Value[0] * getModifierFor(kvp.Key as Item));
+                            kvp.Value.SetValue(p, 0);
+                            LogIt($"'{kvp.Key.DisplayName}' now costs {kvp.Value[0]}");
+                        }
                     }
                 }
                 //Thrown when the object lacks the field we asked reflection for.
@@ -234,9 +240,9 @@ namespace StardewEconMod
                         LogIt($"Checking player inventory item '{i}' for price reset.");
                         if (i is StardewValley.Object && salePriceChangeRecord.ContainsKey(i))
                         {
-                            LogIt($"'{i}' is in the record of changed prices, currently costs ${(i as StardewValley.Object).Price}, and has a stored original price of ${salePriceChangeRecord[i]}.");
+                            LogIt($"'{i.DisplayName}' is in the record of changed prices, currently costs ${(i as StardewValley.Object).Price}, and has a stored original price of ${salePriceChangeRecord[i]}.");
                             (i as StardewValley.Object).Price = salePriceChangeRecord[i];
-                            LogIt($"'{i}' now costs ${(i as StardewValley.Object).Price}");
+                            LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
                         }
                     }
                     salePriceChangeRecord.Clear();
