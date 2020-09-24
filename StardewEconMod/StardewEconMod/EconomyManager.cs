@@ -41,7 +41,10 @@ namespace StardewEconMod
         private int lastPlayerMoney;
 
         /// <summary>Daily register of all sales made, to be processed at EOD.</summary>
-        List<TransactionTicket> ticketsToday;
+        private List<TransactionTicket> ticketsToday;
+
+        /// <summary>A record of the original prices of objects in the player's inventory.</summary>
+        private Dictionary<Item, int> salePriceChangeRecord;
 
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
@@ -53,6 +56,7 @@ namespace StardewEconMod
             isShopping = false;
             nonShopShops = new string[3] { "Furniture Catalogue", "Catalogue", "Dresser" };
             ticketsToday = new List<TransactionTicket>();
+            salePriceChangeRecord = new Dictionary<Item, int>();
 
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
@@ -100,7 +104,8 @@ namespace StardewEconMod
 
         /// <summary>Applies the modifier for a given item.</summary>
         /// <param name="keyItem">The item to get the modifier for.</param>
-        private double getModifierFor(Item keyItem)
+        /// <param name="playerBuying">Logic involved is different for buying vs. selling, we assume buying.</param>
+        private double getModifierFor(Item keyItem, bool playerBuying = true)
         {
             LogIt($"TBD: Actually calculate modifier for {keyItem.Name}");
             return 1.0;
@@ -174,17 +179,35 @@ namespace StardewEconMod
                         return;
                     }
 
-                    //The first number of the int[] is the price.
-                    Dictionary<Item, int[]> inventory = myHelper.Reflection.GetField<Dictionary<Item, int[]>>(shop, "itemPriceAndStock").GetValue();
-
                     isShopping = true;
                     lastPlayerMoney = myPlayer.Money;
                     LogIt($"Result of menu check: Player shopping = {isShopping}, Player money recorded = {lastPlayerMoney}");
 
+                    //Need to change player inventory prices.
+                    int p;
+                    foreach (Item i in myPlayer.Items)
+                    {
+                        LogIt($"Checking player inventory item '{i}' for price modification.");
+                        if (i is StardewValley.Object)
+                        {
+                            p = (i as StardewValley.Object).Price;
+                            salePriceChangeRecord.Add(i, p);
+                            LogIt($"'{i}' is an Object costing ${p}");
+
+                            (i as StardewValley.Object).Price = (int)(p * getModifierFor(i, false));
+                            LogIt($"'{i}' now costs ${(i as StardewValley.Object).Price}");
+                        }
+                    }
+
+                    //The first number of the int[] is the price.
+                    Dictionary<Item, int[]> inventory = myHelper.Reflection.GetField<Dictionary<Item, int[]>>(shop, "itemPriceAndStock").GetValue();
+
                     // Change inventory prices
                     foreach (KeyValuePair<Item, int[]> kvp in inventory)
                     {
+                        LogIt($"Checking shop inventory item '{kvp.Key}' for price modification, currently costs {kvp.Value[0]}");
                         kvp.Value.SetValue(kvp.Value[0] * getModifierFor(kvp.Key), 0);
+                        LogIt($"'{kvp.Key}' now costs {kvp.Value[0]}");
                     }
                 }
                 //Thrown when the object lacks the field we asked reflection for.
@@ -202,6 +225,22 @@ namespace StardewEconMod
             {
                 isShopping = false;    //Cannot possibly be shopping if there's no menu (i.e., the menu closed)
                 LogIt($"No menu loaded, Player shopping = {isShopping}.");
+
+                if (salePriceChangeRecord.Count > 0)
+                {
+                    //Need to change player inventory prices back.
+                    foreach (Item i in myPlayer.Items)
+                    {
+                        LogIt($"Checking player inventory item '{i}' for price reset.");
+                        if (i is StardewValley.Object && salePriceChangeRecord.ContainsKey(i))
+                        {
+                            LogIt($"'{i}' is in the record of changed prices, currently costs ${(i as StardewValley.Object).Price}, and has a stored original price of ${salePriceChangeRecord[i]}.");
+                            (i as StardewValley.Object).Price = salePriceChangeRecord[i];
+                            LogIt($"'{i}' now costs ${(i as StardewValley.Object).Price}");
+                        }
+                    }
+                    salePriceChangeRecord.Clear();
+                }
             }
         }
 
@@ -230,7 +269,8 @@ namespace StardewEconMod
                         ticketsToday.Add(new TransactionTicket(i, i.Stack));
                     }
                 }
-                else if (changedStacks != null && changedStacks.Length > 0)
+                
+                if (changedStacks != null && changedStacks.Length > 0)
                 {
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
@@ -239,7 +279,8 @@ namespace StardewEconMod
                         ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
                     }
                 }
-                else if (remedItems != null && remedItems.Length > 0)
+
+                if (remedItems != null && remedItems.Length > 0)
                 {
                     foreach (Item i in remedItems)
                     {
@@ -248,7 +289,6 @@ namespace StardewEconMod
                         ticketsToday.Add(new TransactionTicket(i, (-1*i.Stack)));
                     }
                 }
-                else LogIt("Inventory changed without added, removed, or changed stacks...?", LogLevel.Warn);
 
                 LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {myPlayer.Money - lastPlayerMoney}).");
 
