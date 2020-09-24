@@ -194,6 +194,9 @@ namespace StardewEconMod
 
             //Clear transactions for new day.
             ticketsToday.Clear();
+
+            //Just in case
+            salePriceChangeRecord.Clear();
         }
 
         /// <summary>Creates transaction tickets for every item in shipping bin.</summary>
