@@ -61,6 +61,7 @@ namespace StardewEconMod
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
             myHelper.Events.GameLoop.DayStarted += DailyStartTasks;
+            myHelper.Events.GameLoop.DayEnding += HandleShippingBin;
             myHelper.Events.Display.MenuChanged += HandleShopMenu;
             myHelper.Events.Player.InventoryChanged += CheckForSaleOrPurchase;
 
@@ -193,6 +194,20 @@ namespace StardewEconMod
 
             //Clear transactions for new day.
             ticketsToday.Clear();
+        }
+
+        /// <summary>Creates transaction tickets for every item in shipping bin.</summary>
+        private void HandleShippingBin(object sender, DayEndingEventArgs e)
+        {
+            int totalShipmentsValue = 0;
+            foreach (Item i in Game1.getFarm().getShippingBin(Game1.player))
+            {
+                ticketsToday.Add(new TransactionTicket(i, i.Stack));
+                modifyNewItemPrice(i);
+                totalShipmentsValue += i.salePrice();
+                LogIt($"Shipping: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()})");
+            }
+            LogIt($"Total value of shipped items should be: ${totalShipmentsValue}");
         }
 
         /// <summary>Attempts to detect player use of a shop to keep track of changes in player money and apply modified prices.</summary>
