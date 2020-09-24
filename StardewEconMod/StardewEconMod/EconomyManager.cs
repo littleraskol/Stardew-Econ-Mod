@@ -98,6 +98,14 @@ namespace StardewEconMod
             api.RegisterSimpleOption(ModManifest, "Verbose Mode", "This turns on finely detailed debug messages. Don't set if you don't need it (you probably do not need it).", () => myConfig.VerboseMode, (bool val) => myConfig.VerboseMode = val);
         }
 
+        /// <summary>Applies the modifier for a given item.</summary>
+        /// <param name="keyItem">The item to get the modifier for.</param>
+        private double getModifierFor(Item keyItem)
+        {
+            LogIt($"TBD: Actually calculate modifier for {keyItem.Name}");
+            return 1.0;
+        }
+
         // *** EVENT HANDLING METHODS ***
 
         /// <summary>Initial configuration and etc.</summary>
@@ -129,7 +137,7 @@ namespace StardewEconMod
             ticketsToday.Clear();
         }
 
-        /// <summary>Attempts to detect player use of a shop to keep track of changes in player money.</summary>
+        /// <summary>Attempts to detect player use of a shop to keep track of changes in player money and apply modified prices.</summary>
         private void HandleShopMenu(object sender, MenuChangedEventArgs e)
         {
             LogIt($"Entered/Exited Menu: '{e.NewMenu}', Previous Menu: '{e.OldMenu}'");
@@ -151,12 +159,35 @@ namespace StardewEconMod
                     return;
                 }
 
-                //Bail out if this is a dresser or something.
                 try
                 {
+                    //Bail out if this is a dresser or something.
                     if (myHelper.Reflection.GetField<bool>(shop, "_isStorageShop").GetValue()) return;
+
+                    //Final sanity check
+                    if (nonShopShops.Contains(shop.storeContext))
+                    {
+                        isShopping = false;
+
+                        LogIt($"Shop's store context '{shop.storeContext}' was invalid, Player shopping = {isShopping}.");
+
+                        return;
+                    }
+
+                    //The first number of the int[] is the price.
+                    Dictionary<Item, int[]> inventory = myHelper.Reflection.GetField<Dictionary<Item, int[]>>(shop, "itemPriceAndStock").GetValue();
+
+                    isShopping = true;
+                    lastPlayerMoney = myPlayer.Money;
+                    LogIt($"Result of menu check: Player shopping = {isShopping}, Player money recorded = {lastPlayerMoney}");
+
+                    // Change inventory prices
+                    foreach (KeyValuePair<Item, int[]> kvp in inventory)
+                    {
+                        kvp.Value.SetValue(kvp.Value[0] * getModifierFor(kvp.Key), 0);
+                    }
                 }
-                //Thrown when the object lacks the field we asked for.
+                //Thrown when the object lacks the field we asked reflection for.
                 //This shouldn't happen because we should only reach this point if dealing with a ShopMenu, but...
                 catch (InvalidOperationException ex)
                 {
@@ -166,20 +197,6 @@ namespace StardewEconMod
 
                     return;
                 }
-
-                //Final sanity check
-                if (nonShopShops.Contains(shop.storeContext))
-                {
-                    isShopping = false;
-
-                    LogIt($"Shop's store context '{shop.storeContext}' was invalid, Player shopping = {isShopping}.");
-
-                    return;
-                }
-
-                isShopping = true;
-                lastPlayerMoney = myPlayer.Money;
-                LogIt($"Result of menu check: Player shopping = {isShopping}, Player money recorded = {lastPlayerMoney}");
             }
             else
             {
@@ -239,7 +256,7 @@ namespace StardewEconMod
             }
             else
             {
-                LogIt("Inventory change detected in non-commerce context.");
+                LogIt($"Inventory change detected. Doing S&D: {doingSupplyDemand}, Shopping: {isShopping}, Money changed: {(myPlayer.Money - lastPlayerMoney) != 0}");
             }
         }
     }
