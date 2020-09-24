@@ -104,13 +104,64 @@ namespace StardewEconMod
 
         /// <summary>Applies the modifier for a given item.</summary>
         /// <param name="keyItem">The item to get the modifier for.</param>
-        /// <param name="playerBuying">Logic involved is different for buying vs. selling, we assume buying.</param>
+        /// <param name="playerBuying">(Optional) Logic involved is different for buying vs. selling, we assume buying.</param>
         private double getModifierFor(Item keyItem, bool playerBuying = true)
         {
             LogIt($"TBD: Actually calculate modifier for {keyItem.Name}");
             if (playerBuying) return 1.5;
             else return 0.5;
             //return 1.0;
+        }
+
+        /// <summary>Modifies player inventory prices as needed.</summary>
+        private void modifyPlayerInventoryPrices()
+        {
+            int p;
+            foreach (Item i in myPlayer.Items)
+            {
+                LogIt($"Checking player inventory item '{i.DisplayName}' for price modification if possible.");
+                if (i is StardewValley.Object)
+                {
+                    p = (i as StardewValley.Object).Price;
+                    salePriceChangeRecord.Add(i, p);
+                    LogIt($"'{i.DisplayName}' is an Object costing ${p}");
+
+                    (i as StardewValley.Object).Price = (int)(p * getModifierFor(i, false));
+                    LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
+                }
+            }
+        }
+
+        /// <summary>Resets prices of items in player inventory to original values.</summary>
+        private void resetPlayerInventoryPrices()
+        {
+            foreach (Item i in myPlayer.Items)
+            {
+                LogIt($"Checking player inventory item '{i}' for price reset if possible.");
+                if (i is StardewValley.Object && salePriceChangeRecord.ContainsKey(i))
+                {
+                    LogIt($"'{i.DisplayName}' is in the record of changed prices, currently costs ${(i as StardewValley.Object).Price}, and has a stored original price of ${salePriceChangeRecord[i]}.");
+                    (i as StardewValley.Object).Price = salePriceChangeRecord[i];
+                    LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
+                }
+            }
+            salePriceChangeRecord.Clear();
+        }
+
+        /// <summary>Modifies price of single item as added.</summary>
+        /// <param name="i">Item to modify.</param>
+        private void modifyNewItemPrice(Item i)
+        {
+            LogIt($"Checking newly added inventory item '{i.DisplayName}' for price modification if possible.");
+            if (i is StardewValley.Object)
+            {
+                int p = (i as StardewValley.Object).Price;
+                salePriceChangeRecord.Add(i, p);
+                LogIt($"'{i.DisplayName}' is an Object costing ${p}");
+
+                (i as StardewValley.Object).Price = (int)(p * getModifierFor(i, false));
+                LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
+            }
         }
 
         // *** EVENT HANDLING METHODS ***
@@ -186,20 +237,7 @@ namespace StardewEconMod
                     LogIt($"Result of menu check: Player shopping = {isShopping}, Player money recorded = {lastPlayerMoney}");
 
                     //Need to change player inventory prices.
-                    int p;
-                    foreach (Item i in myPlayer.Items)
-                    {
-                        LogIt($"Checking player inventory item '{i.DisplayName}' for price modification.");
-                        if (i is StardewValley.Object)
-                        {
-                            p = (i as StardewValley.Object).Price;
-                            salePriceChangeRecord.Add(i, p);
-                            LogIt($"'{i.DisplayName}' is an Object costing ${p}");
-
-                            (i as StardewValley.Object).Price = (int)(p * getModifierFor(i, false));
-                            LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
-                        }
-                    }
+                    modifyPlayerInventoryPrices();
 
                     //The first number of the int[] is the price.
                     Dictionary<ISalable, int[]> inventory = myHelper.Reflection.GetField<Dictionary<ISalable, int[]>>(shop, "itemPriceAndStock").GetValue();
@@ -210,8 +248,7 @@ namespace StardewEconMod
                         LogIt($"Checking shop inventory item '{kvp.Key.DisplayName}' for price modification, currently costs {kvp.Value[0]}");
                         if (kvp.Key is Item)
                         {
-                            p = (int)(kvp.Value[0] * getModifierFor(kvp.Key as Item));
-                            kvp.Value.SetValue(p, 0);
+                            kvp.Value.SetValue((int)(kvp.Value[0] * getModifierFor(kvp.Key as Item)), 0);
                             LogIt($"'{kvp.Key.DisplayName}' now costs {kvp.Value[0]}");
                         }
                     }
@@ -232,21 +269,7 @@ namespace StardewEconMod
                 isShopping = false;    //Cannot possibly be shopping if there's no menu (i.e., the menu closed)
                 LogIt($"No menu loaded, Player shopping = {isShopping}.");
 
-                if (salePriceChangeRecord.Count > 0)
-                {
-                    //Need to change player inventory prices back.
-                    foreach (Item i in myPlayer.Items)
-                    {
-                        LogIt($"Checking player inventory item '{i}' for price reset.");
-                        if (i is StardewValley.Object && salePriceChangeRecord.ContainsKey(i))
-                        {
-                            LogIt($"'{i.DisplayName}' is in the record of changed prices, currently costs ${(i as StardewValley.Object).Price}, and has a stored original price of ${salePriceChangeRecord[i]}.");
-                            (i as StardewValley.Object).Price = salePriceChangeRecord[i];
-                            LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
-                        }
-                    }
-                    salePriceChangeRecord.Clear();
-                }
+                if (salePriceChangeRecord.Count > 0) resetPlayerInventoryPrices();
             }
         }
 
@@ -273,6 +296,7 @@ namespace StardewEconMod
                         LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()})");
 
                         ticketsToday.Add(new TransactionTicket(i, i.Stack));
+                        modifyNewItemPrice(i);
                     }
                 }
                 
