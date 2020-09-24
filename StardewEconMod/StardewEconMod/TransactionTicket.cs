@@ -23,10 +23,8 @@ namespace StardewEconMod
 
         public override string ToString()
         {
-            if (quant == -1) return $"Sold 1 {myItem.DisplayName} for ${myItem.salePrice()/2}";
-            else if (quant < -1) return $"Sold {-1*quant} {myItem.DisplayName}s for ${(myItem.salePrice()*quant)/2}";
-            else if (quant == 1) return $"Bought 1 {myItem.DisplayName} for ${myItem.salePrice()}";
-            else return $"Bought {quant} {myItem.DisplayName}s for ${myItem.salePrice()*quant}";
+            if (quant < 0) return $"Sold {-1*quant} {myItem.DisplayName}(s) for ${(myItem.salePrice()*-1*quant)/2}";
+            else return $"Bought {quant} {myItem.DisplayName}(s) for ${myItem.salePrice()*quant}";
         }
     }
 }

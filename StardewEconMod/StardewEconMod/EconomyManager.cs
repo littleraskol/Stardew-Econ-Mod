@@ -40,6 +40,9 @@ namespace StardewEconMod
         /// <summary>Stores the last known value of the player's money.</summary>
         private int lastPlayerMoney;
 
+        /// <summary>Daily register of all sales made, to be processed at EOD.</summary>
+        List<TransactionTicket> ticketsToday;
+
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
@@ -49,9 +52,11 @@ namespace StardewEconMod
 
             isShopping = false;
             nonShopShops = new string[3] { "Furniture Catalogue", "Catalogue", "Dresser" };
+            ticketsToday = new List<TransactionTicket>();
 
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
+            myHelper.Events.GameLoop.DayStarted += DailyStartTasks;
             myHelper.Events.Display.MenuChanged += HandleShopMenu;
             myHelper.Events.Player.InventoryChanged += CheckForSaleOrPurchase;
 
@@ -110,6 +115,18 @@ namespace StardewEconMod
             lastPlayerMoney = myPlayer.Money;
 
             RefreshConfig();
+        }
+
+        /// <summary>Every day, handle the previous day's transactions.</summary>
+        private void DailyStartTasks(object sender, DayStartedEventArgs e)
+        {
+            foreach (TransactionTicket t in ticketsToday)
+            {
+                LogIt($"TBD: Handle new transaction '{t}'");
+            }
+
+            //Clear transactions for new day.
+            ticketsToday.Clear();
         }
 
         /// <summary>Attempts to detect player use of a shop to keep track of changes in player money.</summary>
@@ -174,25 +191,26 @@ namespace StardewEconMod
         /// <summary>Attempts to detect whether a change in player inventory means a sale has occurred, and handle it.</summary>
         private void CheckForSaleOrPurchase(object sender, InventoryChangedEventArgs e)
         {
-            //Everything here is about the supply/demand system and requires the player be shopping.
-            if (doingSupplyDemand && isShopping)
+            /*Everything here requires:
+             * 1. that the supply/demand system be on, and
+             * 2. that the player be shopping, and
+             * 3. that the player gained or lost money.
+             */
+            if (doingSupplyDemand && isShopping && myPlayer.Money != lastPlayerMoney)
             {
-                LogIt("Inventory change detected while shopping.");
+                LogIt("Inventory change detected while shopping; money changed indicates a sale or purchase.");
 
                 Item[] addedItems = e.Added as Item[];
                 Item[] remedItems = e.Removed as Item[];
                 ItemStackSizeChange[] changedStacks = e.QuantityChanged as ItemStackSizeChange[];
-
-                List<TransactionTicket> tickets = new List<TransactionTicket>();
-
 
                 if (addedItems != null && addedItems.Length > 0)
                 {
                     foreach (Item i in addedItems)
                     {
                         LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()})");
-                        
-                        tickets.Add(new TransactionTicket(i, i.Stack));
+
+                        ticketsToday.Add(new TransactionTicket(i, i.Stack));
                     }
                 }
                 else if (changedStacks != null && changedStacks.Length > 0)
@@ -200,8 +218,8 @@ namespace StardewEconMod
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
                         LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: ${i.Item.salePrice()}) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
-                        
-                        tickets.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
+
+                        ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
                     }
                 }
                 else if (remedItems != null && remedItems.Length > 0)
@@ -209,31 +227,19 @@ namespace StardewEconMod
                     foreach (Item i in remedItems)
                     {
                         LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()}).");
-                        
-                        tickets.Add(new TransactionTicket(i, (-1*i.Stack)));
+
+                        ticketsToday.Add(new TransactionTicket(i, (-1*i.Stack)));
                     }
                 }
-                else LogIt("Inventory changed without added, removed, or changed stacks?", LogLevel.Warn);
+                else LogIt("Inventory changed without added, removed, or changed stacks...?", LogLevel.Warn);
 
-                if (myPlayer.Money != lastPlayerMoney)
-                {
-                    LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {myPlayer.Money - lastPlayerMoney}).");
+                LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {myPlayer.Money - lastPlayerMoney}).");
 
-                    foreach (TransactionTicket t in tickets)
-                    {
-                        LogIt($"TBD: Handle new transaction '{t}'");
-                    }
-
-                    lastPlayerMoney = myPlayer.Money;
-                }
-                else
-                {
-                    LogIt($"No money change has occurred, likely no sale or purchase occurred.");
-                }
+                lastPlayerMoney = myPlayer.Money;
             }
             else
             {
-                LogIt("Inventory change detected.");
+                LogIt("Inventory change detected in non-commerce context.");
             }
         }
     }
