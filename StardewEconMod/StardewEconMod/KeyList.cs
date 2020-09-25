@@ -19,9 +19,17 @@ namespace StardewEconMod
         }
 
         /// <summary>Controls adding keys.</summary>
+        /// <param name="key">The key string to add.</param>
         public void addNewKey(string key)
         {
             keys.Add(key);
+        }
+
+        /// <summary>Informs about whether there are keys to write.</summary>
+        /// <returns>Whether there is at least one key to write.</returns>
+        public bool hasKeysToWrite()
+        {
+            return keys.Count > 0;
         }
     }
 }
