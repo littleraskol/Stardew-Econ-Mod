@@ -366,15 +366,18 @@ namespace StardewEconMod
                 if (changedStacks != null && changedStacks.Length > 0)
                 {
                     int q;
+                    int qDiv;
                     int changedStackCost;
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
                         q = i.NewSize - i.OldSize;
                         changedStackCost = Math.Abs(moneyChange) - Math.Abs(addedItemsCost);
+                        changedStackCost = Math.Abs(changedStackCost);  //JIC
+                        qDiv = preventDIV0(Math.Abs(q));
 
-                        ticketsToday.Add(new TransactionTicket(i.Item, q, changedStackCost / preventDIV0(q)));
+                        ticketsToday.Add(new TransactionTicket(i.Item, q, changedStackCost / qDiv));
 
-                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${changedStackCost / preventDIV0(q)} each, ${changedStackCost} total) from {i.OldSize} to {i.NewSize} (by {q})");
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${changedStackCost / qDiv} each, ${changedStackCost} total) from {i.OldSize} to {i.NewSize} (by {q})");
                     }
                 }
 
