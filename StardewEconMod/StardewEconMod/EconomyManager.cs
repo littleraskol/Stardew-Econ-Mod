@@ -176,6 +176,14 @@ namespace StardewEconMod
             return 0;
         }
 
+        /// <summary>Determines if an Item is a SV Object or not, and returns its price as appropriate.</summary>
+        /// <param name="i">Item to get price for.</param>
+        public static int getPriceForItemOrObject(Item i)
+        {
+            if (i is StardewValley.Object) return (i as StardewValley.Object).Price;
+            else return i.salePrice();
+        }
+
         // *** EVENT HANDLING METHODS ***
 
         /// <summary>Initial configuration and etc.</summary>
@@ -218,8 +226,9 @@ namespace StardewEconMod
             foreach (Item i in Game1.getFarm().getShippingBin(Game1.player))
             {
                 curPrice = modifyNewItemPrice(i);
-                ticketsToday.Add(new TransactionTicket(i, -1*i.Stack, curPrice));
-                curPrice *= i.Stack;
+                ticketsToday.Add(new TransactionTicket(i, -1*i.Stack));
+                if (curPrice == 0) curPrice = i.Stack * i.salePrice();
+                else curPrice *= i.Stack;
                 totalShipmentsValue += curPrice;
 
                 LogIt($"Shipping: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice/i.Stack} each, ${curPrice} total)");
@@ -320,14 +329,15 @@ namespace StardewEconMod
                 Item[] addedItems = e.Added as Item[];
                 Item[] remedItems = e.Removed as Item[];
                 ItemStackSizeChange[] changedStacks = e.QuantityChanged as ItemStackSizeChange[];
+                int curPrice;
 
                 if (addedItems != null && addedItems.Length > 0)
                 {
-                    int curPrice;
                     foreach (Item i in addedItems)
                     {
                         curPrice = modifyNewItemPrice(i);
-                        ticketsToday.Add(new TransactionTicket(i, i.Stack, curPrice));
+                        ticketsToday.Add(new TransactionTicket(i));
+                        if (curPrice == 0) curPrice = i.salePrice();
 
                         LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice*i.Stack} total)");
                     }
@@ -337,9 +347,11 @@ namespace StardewEconMod
                 {
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
-                        ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize, i.Item.salePrice()));
+                        ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
 
-                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${i.Item.salePrice()} each, ${i.Item.salePrice()*i.Item.Stack} total) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
+                        curPrice = getPriceForItemOrObject(i.Item);
+
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${curPrice} each, ${curPrice * i.Item.Stack} total) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
                     }
                 }
 
@@ -347,9 +359,11 @@ namespace StardewEconMod
                 {
                     foreach (Item i in remedItems)
                     {
-                        ticketsToday.Add(new TransactionTicket(i, -1*i.Stack, i.salePrice()));
+                        ticketsToday.Add(new TransactionTicket(i, -1*i.Stack));
 
-                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: Approx. ${i.salePrice()} each, ${i.salePrice()*i.Stack} total).");
+                        curPrice = getPriceForItemOrObject(i);
+
+                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: Approx. ${curPrice} each, ${curPrice * i.Stack} total).");
                     }
                 }
 
