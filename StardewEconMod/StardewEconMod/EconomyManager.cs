@@ -46,6 +46,9 @@ namespace StardewEconMod
         /// <summary>A record of the original prices of objects in the player's inventory.</summary>
         private Dictionary<Item, int> salePriceChangeRecord;
 
+        /// <summary>A record of the prices of objects as sold in a particular store.</summary>
+        private Dictionary<Item, int> storePriceRecord;
+
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
@@ -57,6 +60,7 @@ namespace StardewEconMod
             nonShopShops = new string[3] { "Furniture Catalogue", "Catalogue", "Dresser" };
             ticketsToday = new List<TransactionTicket>();
             salePriceChangeRecord = new Dictionary<Item, int>();
+            storePriceRecord = new Dictionary<Item, int>();
 
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
@@ -301,6 +305,7 @@ namespace StardewEconMod
                         if (kvp.Key is Item)
                         {
                             kvp.Value.SetValue((int)(kvp.Value[0] * getModifierFor(kvp.Key as Item)), 0);
+                            storePriceRecord.Add(kvp.Key as Item, getPriceForItemOrObject(kvp.Key as Item));
                             LogIt($"'{kvp.Key.DisplayName}' now costs {kvp.Value[0]}");
                         }
                     }
@@ -322,6 +327,7 @@ namespace StardewEconMod
                 LogIt($"No menu loaded, Player shopping = {isShopping}.");
 
                 if (salePriceChangeRecord.Count > 0) resetPlayerInventoryPrices();
+                if (storePriceRecord.Count > 0) storePriceRecord.Clear();
             }
         }
 
@@ -357,14 +363,14 @@ namespace StardewEconMod
                         //For ticketing purposes, we record a "store price" copy of the item.
                         saleCopy = i.getOne();
                         saleCopy.Stack = i.Stack;
-                        modifyNewItemPrice(saleCopy, true);
+                        if (storePriceRecord.ContainsKey(i) && i is StardewValley.Object) (saleCopy as StardewValley.Object).Price = storePriceRecord[i];
 
                         ticketsToday.Add(new TransactionTicket(saleCopy));
 
-                        curPrice = getPriceForItemOrObject(i);
-                        addedItemsCost = curPrice * i.Stack;
+                        curPrice = getPriceForItemOrObject(saleCopy);
+                        addedItemsCost = curPrice * saleCopy.Stack;
 
-                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice * i.Stack} total)");
+                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${addedItemsCost} total)");
 
                         //This is the item actually added to player inventory, and needs conversion to player price.
                         modifyNewItemPrice(i);
