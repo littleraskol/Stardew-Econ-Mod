@@ -346,6 +346,7 @@ namespace StardewEconMod
                 ItemStackSizeChange[] changedStacks = e.QuantityChanged as ItemStackSizeChange[];
 
                 int curPrice;
+                int addedItemsCost = 0;
 
                 if (addedItems != null && addedItems.Length > 0)
                 {
@@ -354,6 +355,8 @@ namespace StardewEconMod
                         ticketsToday.Add(new TransactionTicket(i));
 
                         curPrice = getPriceForItemOrObject(i);
+                        addedItemsCost = curPrice * i.Stack;
+
                         modifyNewItemPrice(i);
 
                         LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice*i.Stack} total)");
@@ -363,13 +366,15 @@ namespace StardewEconMod
                 if (changedStacks != null && changedStacks.Length > 0)
                 {
                     int q;
+                    int changedStackCost;
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
                         q = i.NewSize - i.OldSize;
+                        changedStackCost = Math.Abs(moneyChange) - Math.Abs(addedItemsCost);
 
-                        ticketsToday.Add(new TransactionTicket(i.Item, q, Math.Abs(moneyChange / preventDIV0(q))));
+                        ticketsToday.Add(new TransactionTicket(i.Item, q, changedStackCost / preventDIV0(q)));
 
-                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${Math.Abs(moneyChange / preventDIV0(q))} each, ${Math.Abs(moneyChange)} total) from {i.OldSize} to {i.NewSize} (by {q})");
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${changedStackCost / preventDIV0(q)} each, ${changedStackCost} total) from {i.OldSize} to {i.NewSize} (by {q})");
                     }
                 }
 
