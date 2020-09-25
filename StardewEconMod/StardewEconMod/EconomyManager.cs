@@ -372,7 +372,6 @@ namespace StardewEconMod
                     {
                         q = i.NewSize - i.OldSize;
                         changedStackCost = Math.Abs(moneyChange) - Math.Abs(addedItemsCost);
-                        changedStackCost = Math.Abs(changedStackCost);  //JIC
                         qDiv = preventDIV0(Math.Abs(q));
 
                         ticketsToday.Add(new TransactionTicket(i.Item, q, changedStackCost / qDiv));
