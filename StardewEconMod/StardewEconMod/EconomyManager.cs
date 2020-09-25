@@ -305,7 +305,7 @@ namespace StardewEconMod
                         if (kvp.Key is Item)
                         {
                             kvp.Value.SetValue((int)(kvp.Value[0] * getModifierFor(kvp.Key as Item)), 0);
-                            storePriceRecord.Add(kvp.Key as Item, getPriceForItemOrObject(kvp.Key as Item));
+                            storePriceRecord.Add(kvp.Key as Item, kvp.Value[0]);
                             LogIt($"'{kvp.Key.DisplayName}' now costs {kvp.Value[0]}");
                         }
                     }
