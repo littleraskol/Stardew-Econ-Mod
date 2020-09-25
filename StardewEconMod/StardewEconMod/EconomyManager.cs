@@ -178,10 +178,20 @@ namespace StardewEconMod
 
         /// <summary>Determines if an Item is a SV Object or not, and returns its price as appropriate.</summary>
         /// <param name="i">Item to get price for.</param>
+        /// <returns>Item price.</returns>
         public static int getPriceForItemOrObject(Item i)
         {
             if (i is StardewValley.Object) return (i as StardewValley.Object).Price;
             else return i.salePrice();
+        }
+
+        /// <summary>Prevents divide-by-0 error.</summary>
+        /// <param name="i">Integer to proof against DIV0 error.</param>
+        /// <returns>If i == 0, 1, otherwise i.</returns>
+        public static int preventDIV0(int i)
+        {
+            if (i == 0) return 1;
+            else return i;
         }
 
         // *** EVENT HANDLING METHODS ***
@@ -326,18 +336,25 @@ namespace StardewEconMod
             {
                 LogIt("Inventory change detected while shopping; money changed indicates a sale or purchase.");
 
+                int moneyChange = myPlayer.Money - lastPlayerMoney;
+                LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {moneyChange}).");
+
+                lastPlayerMoney = myPlayer.Money;
+
                 Item[] addedItems = e.Added as Item[];
                 Item[] remedItems = e.Removed as Item[];
                 ItemStackSizeChange[] changedStacks = e.QuantityChanged as ItemStackSizeChange[];
+
                 int curPrice;
 
                 if (addedItems != null && addedItems.Length > 0)
                 {
                     foreach (Item i in addedItems)
                     {
-                        curPrice = modifyNewItemPrice(i);
                         ticketsToday.Add(new TransactionTicket(i));
-                        if (curPrice == 0) curPrice = i.salePrice();
+
+                        curPrice = getPriceForItemOrObject(i);
+                        modifyNewItemPrice(i);
 
                         LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice*i.Stack} total)");
                     }
@@ -345,13 +362,14 @@ namespace StardewEconMod
                 
                 if (changedStacks != null && changedStacks.Length > 0)
                 {
+                    int q;
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
-                        ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
+                        q = i.NewSize - i.OldSize;
 
-                        curPrice = getPriceForItemOrObject(i.Item);
+                        ticketsToday.Add(new TransactionTicket(i.Item, q, Math.Abs(moneyChange / preventDIV0(q))));
 
-                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${curPrice} each, ${curPrice * i.Item.Stack} total) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${Math.Abs(moneyChange / preventDIV0(q))} each, ${Math.Abs(moneyChange)} total) from {i.OldSize} to {i.NewSize} (by {q})");
                     }
                 }
 
@@ -366,10 +384,6 @@ namespace StardewEconMod
                         LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: Approx. ${curPrice} each, ${curPrice * i.Stack} total).");
                     }
                 }
-
-                LogIt($"Player money changed from {lastPlayerMoney} to {myPlayer.Money} (a difference of {myPlayer.Money - lastPlayerMoney}).");
-
-                lastPlayerMoney = myPlayer.Money;
             }
             else
             {
