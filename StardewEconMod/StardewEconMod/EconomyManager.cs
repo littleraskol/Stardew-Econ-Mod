@@ -219,8 +219,10 @@ namespace StardewEconMod
             {
                 curPrice = modifyNewItemPrice(i);
                 ticketsToday.Add(new TransactionTicket(i, -1*i.Stack, curPrice));
+                curPrice *= i.Stack;
                 totalShipmentsValue += curPrice;
-                LogIt($"Shipping: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice})");
+
+                LogIt($"Shipping: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice/i.Stack} each, ${curPrice} total)");
             }
             LogIt($"Total value of shipped items should be: ${totalShipmentsValue}");
         }
@@ -327,7 +329,7 @@ namespace StardewEconMod
                         curPrice = modifyNewItemPrice(i);
                         ticketsToday.Add(new TransactionTicket(i, i.Stack, curPrice));
 
-                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice})");
+                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice*i.Stack} total)");
                     }
                 }
                 
@@ -337,7 +339,7 @@ namespace StardewEconMod
                     {
                         ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize, i.Item.salePrice()));
 
-                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${i.Item.salePrice()}) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${i.Item.salePrice()} each, ${i.Item.salePrice()*i.Item.Stack} total) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
                     }
                 }
 
@@ -347,7 +349,7 @@ namespace StardewEconMod
                     {
                         ticketsToday.Add(new TransactionTicket(i, -1*i.Stack, i.salePrice()));
 
-                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: Approx. ${i.salePrice()}).");
+                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: Approx. ${i.salePrice()} each, ${i.salePrice()*i.Stack} total).");
                     }
                 }
 
