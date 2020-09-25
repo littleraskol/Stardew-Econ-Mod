@@ -9,22 +9,24 @@ using StardewValley;
 
 namespace StardewEconMod
 {
-    /// <summary>Stores the item and quantity of a buy/sell transaction.</summary>
+    /// <summary>Stores the item, quantity, and (approx.) price of a buy/sell transaction.</summary>
     struct TransactionTicket
     {
         public Item myItem { get; }
         public int quant { get; }
+        public int price { get; }
 
-        public TransactionTicket(Item i, int q)
+        public TransactionTicket(Item i, int q, int p)
         {
             myItem = i;
             quant = q;
+            price = p;
         }
 
         public override string ToString()
         {
-            if (quant < 0) return $"Sold {-1*quant} {myItem.DisplayName}(s) for ${(myItem.salePrice()*-1*quant)/2}";
-            else return $"Bought {quant} {myItem.DisplayName}(s) for ${myItem.salePrice()*quant}";
+            if (quant < 0) return $"Sold {-1*quant} {myItem.DisplayName}(s) for ${price*-1*quant}";
+            else return $"Bought {quant} {myItem.DisplayName}(s) for ${price*quant}";
         }
     }
 }

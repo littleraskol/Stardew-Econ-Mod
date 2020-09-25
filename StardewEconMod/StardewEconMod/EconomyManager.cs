@@ -155,9 +155,10 @@ namespace StardewEconMod
 
         /// <summary>Modifies price of single item as added.</summary>
         /// <param name="i">Item to modify.</param>
-        private void modifyNewItemPrice(Item i)
+        /// <returns>New item price.</returns>
+        private int modifyNewItemPrice(Item i)
         {
-            if (i == null) return;
+            if (i == null) return 0;
 
             LogIt($"Checking newly added inventory item '{i.DisplayName}' for price modification if possible.");
             if (i is StardewValley.Object)
@@ -166,9 +167,13 @@ namespace StardewEconMod
                 salePriceChangeRecord.Add(i, p);
                 LogIt($"'{i.DisplayName}' is an Object costing ${p}");
 
-                (i as StardewValley.Object).Price = (int)(p * getModifierFor(i, false));
-                LogIt($"'{i.DisplayName}' now costs ${(i as StardewValley.Object).Price}");
+                p = (int)(p * getModifierFor(i, false));
+                (i as StardewValley.Object).Price = p;
+                LogIt($"'{i.DisplayName}' now costs ${p}");
+                return p;
             }
+
+            return 0;
         }
 
         // *** EVENT HANDLING METHODS ***
@@ -209,12 +214,13 @@ namespace StardewEconMod
         private void HandleShippingBin(object sender, DayEndingEventArgs e)
         {
             int totalShipmentsValue = 0;
+            int curPrice;
             foreach (Item i in Game1.getFarm().getShippingBin(Game1.player))
             {
-                ticketsToday.Add(new TransactionTicket(i, i.Stack));
-                modifyNewItemPrice(i);
-                totalShipmentsValue += i.salePrice();
-                LogIt($"Shipping: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()})");
+                curPrice = modifyNewItemPrice(i);
+                ticketsToday.Add(new TransactionTicket(i, -1*i.Stack, curPrice));
+                totalShipmentsValue += curPrice;
+                LogIt($"Shipping: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice})");
             }
             LogIt($"Total value of shipped items should be: ${totalShipmentsValue}");
         }
@@ -315,12 +321,13 @@ namespace StardewEconMod
 
                 if (addedItems != null && addedItems.Length > 0)
                 {
+                    int curPrice;
                     foreach (Item i in addedItems)
                     {
-                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()})");
+                        curPrice = modifyNewItemPrice(i);
+                        ticketsToday.Add(new TransactionTicket(i, i.Stack, curPrice));
 
-                        ticketsToday.Add(new TransactionTicket(i, i.Stack));
-                        modifyNewItemPrice(i);
+                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice})");
                     }
                 }
                 
@@ -328,9 +335,9 @@ namespace StardewEconMod
                 {
                     foreach (ItemStackSizeChange i in changedStacks)
                     {
-                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: ${i.Item.salePrice()}) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
+                        ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize, i.Item.salePrice()));
 
-                        ticketsToday.Add(new TransactionTicket(i.Item, i.NewSize - i.OldSize));
+                        LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${i.Item.salePrice()}) from {i.OldSize} to {i.NewSize} (by {i.NewSize - i.OldSize})");
                     }
                 }
 
@@ -338,9 +345,9 @@ namespace StardewEconMod
                 {
                     foreach (Item i in remedItems)
                     {
-                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${i.salePrice()}).");
+                        ticketsToday.Add(new TransactionTicket(i, -1*i.Stack, i.salePrice()));
 
-                        ticketsToday.Add(new TransactionTicket(i, (-1*i.Stack)));
+                        LogIt($"Removed: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: Approx. ${i.salePrice()}).");
                     }
                 }
 
