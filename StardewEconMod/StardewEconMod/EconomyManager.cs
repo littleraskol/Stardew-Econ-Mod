@@ -155,8 +155,9 @@ namespace StardewEconMod
 
         /// <summary>Modifies price of single item as added.</summary>
         /// <param name="i">Item to modify.</param>
+        /// <param name="playerBuying">(Optional) Whether we are 'simulating' a purchase to get purcahse price, assume not.</param>
         /// <returns>New item price.</returns>
-        private int modifyNewItemPrice(Item i)
+        private int modifyNewItemPrice(Item i, bool playerBuying = false)
         {
             if (i == null) return 0;
 
@@ -167,7 +168,7 @@ namespace StardewEconMod
                 salePriceChangeRecord.Add(i, p);
                 LogIt($"'{i.DisplayName}' is an Object costing ${p}");
 
-                p = (int)(p * getModifierFor(i, false));
+                p = (int)(p * getModifierFor(i, playerBuying));
                 (i as StardewValley.Object).Price = p;
                 LogIt($"'{i.DisplayName}' now costs ${p}");
                 return p;
@@ -350,16 +351,24 @@ namespace StardewEconMod
 
                 if (addedItems != null && addedItems.Length > 0)
                 {
+                    Item saleCopy;
                     foreach (Item i in addedItems)
                     {
-                        ticketsToday.Add(new TransactionTicket(i));
+                        //For ticketing purposes, we record a "store price" copy of the item.
+                        saleCopy = i.getOne();
+                        saleCopy.Stack = i.Stack;
+                        modifyNewItemPrice(saleCopy, true);
+
+                        ticketsToday.Add(new TransactionTicket(saleCopy));
 
                         curPrice = getPriceForItemOrObject(i);
                         addedItemsCost = curPrice * i.Stack;
 
+                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice * i.Stack} total)");
+
+                        //This is the item actually added to player inventory, and needs conversion to player price.
                         modifyNewItemPrice(i);
 
-                        LogIt($"Added: {i.DisplayName} (Quantity: {i.Stack}, Category: [{i.Category}] {i.getCategoryName()}, Price: ${curPrice} each, ${curPrice*i.Stack} total)");
                     }
                 }
                 
