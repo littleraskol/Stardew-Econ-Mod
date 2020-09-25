@@ -120,6 +120,8 @@ namespace StardewEconMod
             int p;
             foreach (Item i in myPlayer.Items)
             {
+                if (i == null) continue;
+
                 LogIt($"Checking player inventory item '{i.DisplayName}' for price modification if possible.");
                 if (i is StardewValley.Object)
                 {
@@ -138,6 +140,8 @@ namespace StardewEconMod
         {
             foreach (Item i in myPlayer.Items)
             {
+                if (i == null) continue;
+
                 LogIt($"Checking player inventory item '{i}' for price reset if possible.");
                 if (i is StardewValley.Object && salePriceChangeRecord.ContainsKey(i))
                 {
@@ -153,6 +157,8 @@ namespace StardewEconMod
         /// <param name="i">Item to modify.</param>
         private void modifyNewItemPrice(Item i)
         {
+            if (i == null) return;
+
             LogIt($"Checking newly added inventory item '{i.DisplayName}' for price modification if possible.");
             if (i is StardewValley.Object)
             {
