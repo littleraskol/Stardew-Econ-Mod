@@ -47,7 +47,7 @@ namespace StardewEconMod
         private Dictionary<Item, int> salePriceChangeRecord;
 
         /// <summary>A record of the prices of objects as sold in a particular store.</summary>
-        private Dictionary<Item, int> storePriceRecord;
+        private Dictionary<string, int> storePriceRecord;
 
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
@@ -60,7 +60,7 @@ namespace StardewEconMod
             nonShopShops = new string[3] { "Furniture Catalogue", "Catalogue", "Dresser" };
             ticketsToday = new List<TransactionTicket>();
             salePriceChangeRecord = new Dictionary<Item, int>();
-            storePriceRecord = new Dictionary<Item, int>();
+            storePriceRecord = new Dictionary<string, int>();
 
             myHelper.Events.GameLoop.GameLaunched += StartupTasks;
             myHelper.Events.GameLoop.SaveLoaded += LoadTasks;
@@ -305,7 +305,7 @@ namespace StardewEconMod
                         if (kvp.Key is Item)
                         {
                             kvp.Value.SetValue((int)(kvp.Value[0] * getModifierFor(kvp.Key as Item)), 0);
-                            storePriceRecord.Add(kvp.Key as Item, kvp.Value[0]);
+                            storePriceRecord.Add(kvp.Key.DisplayName, kvp.Value[0]);
                             LogIt($"'{kvp.Key.DisplayName}' now costs {kvp.Value[0]}");
                         }
                     }
@@ -327,7 +327,14 @@ namespace StardewEconMod
                 LogIt($"No menu loaded, Player shopping = {isShopping}.");
 
                 if (salePriceChangeRecord.Count > 0) resetPlayerInventoryPrices();
-                if (storePriceRecord.Count > 0) storePriceRecord.Clear();
+                if (storePriceRecord.Count > 0)
+                {
+                    foreach (KeyValuePair<string, int> kvp in storePriceRecord)
+                    {
+                        LogIt($"In store price record: Item '{kvp.Key}' with price ${kvp.Value}");
+                    }
+                    storePriceRecord.Clear();
+                }
             }
         }
 
@@ -363,9 +370,16 @@ namespace StardewEconMod
                         //For ticketing purposes, we record a "store price" copy of the item.
                         saleCopy = i.getOne();
                         saleCopy.Stack = i.Stack;
-                        if (storePriceRecord.ContainsKey(i) && i is StardewValley.Object) (saleCopy as StardewValley.Object).Price = storePriceRecord[i];
+                        LogIt($"Item '{i.DisplayName}' is in store price record: {storePriceRecord.ContainsKey(i.DisplayName)}, is SV Object: {i is StardewValley.Object}");
+                        if (storePriceRecord.ContainsKey(i.DisplayName) && i is StardewValley.Object)
+                        {
+                            LogIt($"Found {i.DisplayName} in store price record with price ${storePriceRecord[i.DisplayName]}");
+                            (saleCopy as StardewValley.Object).Price = storePriceRecord[i.DisplayName];
+                            LogIt($"Sale copy of {saleCopy.DisplayName} now has price ${(saleCopy as StardewValley.Object).Price}");
+                        }
 
                         ticketsToday.Add(new TransactionTicket(saleCopy));
+                        LogIt($"Created ticket '{ticketsToday.Last()}'");
 
                         curPrice = getPriceForItemOrObject(saleCopy);
                         addedItemsCost = curPrice * saleCopy.Stack;
@@ -390,6 +404,7 @@ namespace StardewEconMod
                         qDiv = preventDIV0(Math.Abs(q));
 
                         ticketsToday.Add(new TransactionTicket(i.Item, q, changedStackCost / qDiv));
+                        LogIt($"Created ticket '{ticketsToday.Last()}'");
 
                         LogIt($"Changed: {i.Item.DisplayName} (Quantity: {i.Item.Stack}, Category: [{i.Item.Category}] {i.Item.getCategoryName()}, Price: Approx. ${changedStackCost / qDiv} each, ${changedStackCost} total) from {i.OldSize} to {i.NewSize} (by {q})");
                     }
@@ -400,6 +415,7 @@ namespace StardewEconMod
                     foreach (Item i in remedItems)
                     {
                         ticketsToday.Add(new TransactionTicket(i, -1*i.Stack));
+                        LogIt($"Created ticket '{ticketsToday.Last()}'");
 
                         curPrice = getPriceForItemOrObject(i);
 
