@@ -49,6 +49,9 @@ namespace StardewEconMod
         /// <summary>A record of the prices of objects as sold in a particular store.</summary>
         private Dictionary<string, int> storePriceRecord;
 
+        /// <summary>Stores unique keys of saveable data, keys written to json.</summary>
+        public KeyList keyList;
+
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
