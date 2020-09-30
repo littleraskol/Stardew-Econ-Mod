@@ -215,14 +215,14 @@ namespace StardewEconMod
 
             if (loadedMarketsData != null)
             {
-                LogIt("Got list of market data.");
+                Monitor.Log("Got list of market data.");
 
                 foreach (MarketModel mm in loadedMarketsData)
                 {
-                    LogIt($"Found {mm.Context} market '{mm.DisplayName}'");
+                    Monitor.Log($"Found {mm.Context} market '{mm.DisplayName}'");
                 }
             }
-            else LogIt($"Unable to load market data.", LogLevel.Error);
+            else Monitor.Log($"Unable to load market data.", LogLevel.Error);
         }
 
         /// <summary>Does everything necessary for the mod once the save loads.</summary>
