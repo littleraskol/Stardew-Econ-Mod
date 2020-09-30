@@ -4,610 +4,563 @@
     "CategoryCodeString": "-18|-6|-5|-14",
     "ItemNameString": "Duck Feather|Rabbit's Foot|Wool|Goat Milk|L. Goat Milk|Large Milk|Milk|Duck Egg|Egg|Egg|Large Egg|Large Egg|Void Egg|Any Meats",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Animal Products Index",
     "CommodityDesc": "Animal Products",
     "ConsumesString": "PlantProductsIndex|IndustrialResourcesIndex|EquipmentIndex",
-    "SublevelFeederString": "AnimalMiscellaniesMarket|DairyMarket|EggMarket",
+    "VerticalIntegration": "AnimalMiscellaniesMarket|DairyMarket|EggMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "AquacultureIndex",
     "CategoryCodeString": "-23|-4",
     "ItemNameString": "Clam|Coral|Nautilus Shell|Rainbow Shell|Roe|Sea Urchin|Squid Ink|Albacore|Anchovy|Angler|Blobfish|Bream|Bullhead|Carp|Catfish|Chub|Cockle|Crab|Crayfish|Crimsonfish|Dorado|Eel|Flounder|Ghostfish|Glacierfish|Halibut|Herring|Ice Pip|Largemouth Bass|Lava Eel|Legend|Lingcod|Lobster|Midnight Carp|Barbed Hook|Cork Bobber|Dressed Spinner|Lead Bobber|Spinner|Trap Bobber|Treasure Hunter|Bait|Magnet|Wild Bait|Midnight Squid|Mussel|Mutant Carp|Octopus|Oyster|Perch|Periwinkle|Pike|Pufferfish|Rainbow Trout|Red Mullet|Red Snapper|Salmon|Sandfish|Sardine|Scorpion Carp|Sea Cucumber|Shad|Shrimp|Slimejack|Smallmouth Bass|Snail|Spook Fish|Squid|Stonefish|Sturgeon|Sunfish|Super Cucumber|Tiger Trout|Tilapia|Tuna|Void Salmon|Walleye|Woodskip",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Aquaculture Index",
     "CommodityDesc": "Aquaculture",
     "ConsumesString": "EquipmentIndex",
-    "SublevelFeederString": "AquaticMiscellaniesMarket|SeafoodMarket",
+    "VerticalIntegration": "AquaticMiscellaniesMarket|SeafoodMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "EquipmentIndex",
     "CategoryCodeString": "-8|-22|-96|-98",
     "ItemNameString": "Cherry Bomb|Dwarvish Translation Guide|Gate|Hardwood Fence|Iridium Sprinkler|Iron Fence|Jack-O-Lantern|Mega Bomb|Quality Sprinkler|Sprinkler|Stone Fence|Wood Fence|Barbed Hook|Cork Bobber|Dressed Spinner|Lead Bobber|Spinner|Trap Bobber|Treasure Hunter|Any Rings|Any Weapons",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Equipment Index",
     "CommodityDesc": "Equipment",
     "ConsumesString": "IndustrialResourcesIndex",
-    "SublevelFeederString": "CraftGoodsMarket|PersonalDefenseMarket|PersonalDefenseMarket|SportFishingMarket",
+    "VerticalIntegration": "CraftGoodsMarket|PersonalDefenseMarket|PersonalDefenseMarket|SportFishingMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "FinishedGoodsIndex",
     "CategoryCodeString": "-26|-7|-27|-24",
     "ItemNameString": "Aged Roe|Beer|Caviar|Cheese|Cloth|Dinosaur Mayonnaise|Duck Mayonnaise|Goat Cheese|Green Tea|Honey|Jelly|Juice|Mayonnaise|Mead|Pale Ale|Pickles|Truffle Oil|Void Mayonnaise|Wine|Algae Soup|Artichoke Dip|Autumn's Bounty|Baked Fish|Bean Hotpot|Blackberry Cobbler|Blueberry Tart|Bread|Bruschetta|Carp Surprise|Cheese Cauliflower|Chocolate Cake|Chowder|Coleslaw|Complete Breakfast|Cookie|Crab Cakes|Cranberry Candy|Cranberry Sauce|Crispy Bass|Dish O' The Sea|Eggplant Parmesan|Escargot|Farmer's Lunch|Fiddlehead Risotto|Fish Stew|Fish Taco|Fried Calamari|Fried Eel|Fried Egg|Fried Mushroom|Fruit Salad|Glazed Yams|Hashbrowns|Ice Cream|Life Elixir|Lobster Bisque|Lucky Lunch|Magic Rock Candy|Maki Roll|Maple Bar|Miner's Treat|Oil of Garlic|Omelet|Pale Broth|Pancakes|Parsnip Soup|Pepper Poppers|Pink Cake|Pizza|Plum Pudding|Poppyseed Muffin|Pumpkin Pie|Pumpkin Soup|Radish Salad|Red Plate|Rhubarb Pie|Rice Pudding|Roasted Hazelnuts|Roots Platter|Salad|Salmon Dinner|Sashimi|Seafoam Pudding|Shrimp Cocktail|Spaghetti|Spicy Eel|Stir Fry|Strange Bun|Stuffing|Super Meal|Survival Burger|Tom Kha Soup|Tortilla|Triple Shot Espresso|Trout Soup|Vegetable Medley|Maple Syrup|Oak Resin|Pine Tar|Brick Floor|Cobblestone Path|Crystal Floor|Crystal Path|Gravel Path|Stepping Stone Path|Stone Floor|Straw Floor|Tea Set|Weathered Floor|Wood Floor|Wood Path",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Finished Goods Index",
     "CommodityDesc": "Finished Goods",
     "ConsumesString": "IndustrialResourcesIndex|NaturalForageIndex|PlantProductsIndex|AnimalProductsIndex|",
-    "SublevelFeederString": "ArtisanFoodsMarket|ArtisanLiquidsMarket|OutdoorDecorMarket|PreparedMealsMarket",
+    "VerticalIntegration": "ArtisanFoodsMarket|ArtisanLiquidsMarket|OutdoorDecorMarket|PreparedMealsMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "IndustrialResourcesIndex",
     "CategoryCodeString": "-15|-74|-19|-16|-21|-25",
     "ItemNameString": "Coal|Copper Bar|Copper Ore|Gold Bar|Gold Ore|Iridium Bar|Iridium Ore|Iron Bar|Iron Ore|Refined Quartz|Acorn|Amaranth Seeds|Ancient Seeds|Apple Sapling|Apricot Sapling|Artichoke Seeds|Bean Starter|Beet Seeds|Blueberry Seeds|Bok Choy Seeds|Cactus Seeds|Cauliflower Seeds|Cherry Sapling|Coffee Bean|Corn Seeds|Cranberry Seeds|Eggplant Seeds|Fairy Seeds|Fall Seeds|Garlic Seeds|Grape Starter|Hops Starter|Jazz Seeds|Kale Seeds|Maple Seed|Melon Seeds|Mixed Seeds|Orange Sapling|Parsnip Seeds|Peach Sapling|Pepper Seeds|Pine Cone|Pomegranate Sapling|Poppy Seeds|Potato Seeds|Pumpkin Seeds|Radish Seeds|Rare Seed|Red Cabbage Seeds|Rhubarb Seeds|Rice Shoot|Spangle Seeds|Spring Seeds|Starfruit Seeds|Strawberry Seeds|Summer Seeds|Sunflower Seeds|Tea Sapling|Tomato Seeds|Tulip Bulb|Wheat Seeds|Winter Seeds|Yam Seeds|Basic Fertilizer|Basic Retaining Soil|Deluxe Speed-Gro|Quality Fertilizer|Quality Retaining Soil|Speed-Gro|Tree Fertilizer|Battery Pack|Clay|Fiber|Hardwood|Stone|Wood|Bait|Magnet|Wild Bait|Wheat Flour|Rice|Oil|Vinegar",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Industrial Resources Index",
     "CommodityDesc": "Industrial Resources",
     "ConsumesString": "NaturalForageIndex",
-    "SublevelFeederString": "ConstructionMaterialMarket|FertilizerMarket|IngredientsMarket|MetalMarket|SeedMarket|SportFishingMarket",
+    "VerticalIntegration": "ConstructionMaterialMarket|FertilizerMarket|IngredientsMarket|MetalMarket|SeedMarket|SportFishingMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "NaturalForageIndex",
     "CategoryCodeString": "-12|-2|-81|-28|-20",
     "ItemNameString": "Aerinite|Alamite|Baryte|Basalt|Bixite|Calcite|Celestine|Dolomite|Esperite|Fairy Stone|Fire Opal|Fluorapatite|Geminite|Ghost Crystal|Granite|Helvite|Hematite|Jagoite|Jamborite|Jasper|Kyanite|Lemon Stone|Limestone|Lunarite|Malachite|Marble|Mudstone|Nekoite|Neptunite|Obsidian|Ocean Stone|Opal|Orpiment|Petrified Slime|Pyrite|Sandstone|Slate|Soapstone|Star Shards|Thunder Egg|Tigerseye|Amethyst|Aquamarine|Diamond|Earth Crystal|Emerald|Fire Quartz|Frozen Tear|Jade|Prismatic Shard|Quartz|Ruby|Topaz|Cave Carrot|Chanterelle|Common Mushroom|Daffodil|Dandelion|Hazelnut|Holly|Leek|Morel|Purple Mushroom|Red Mushroom|Sap|Snow Yam|Spring Onion|Wild Horseradish|Winter Root|Bat Wing|Bug Meat|Slime|Solar Essence|Void Essence|Broken CD|Broken Glasses|Driftwood|Joja Cola|Rotten Plant|Rotten Plant|Soggy Newspaper|Trash",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Natural Forage Index",
     "CommodityDesc": "Natural Forage",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "GemMarket|MonsterPartsMarket|RareStonesMarket|RecyclablesMarket|WildGreensMarket",
+    "VerticalIntegration": "GemMarket|MonsterPartsMarket|RareStonesMarket|RecyclablesMarket|WildGreensMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "PlantProductsIndex",
     "CategoryCodeString": "-80|-79|-75|-17",
     "ItemNameString": "Blue Jazz|Crocus|Fairy Rose|Poppy|Summer Spangle|Sunflower|Sweet Pea|Tulip|Ancient Fruit|Apple|Apricot|Blackberry|Blueberry|Cactus Fruit|Cherry|Coconut|Cranberries|Crystal Fruit|Grape|Hot Pepper|Melon|Orange|Peach|Pomegranate|Rhubarb|Salmonberry|Spice Berry|Starfruit|Strawberry|Wild Plum|Amaranth|Artichoke|Beet|Bok Choy|Cauliflower|Corn|Eggplant|Fiddlehead Fern|Garlic|Green Bean|Hops|Kale|Parsnip|Potato|Pumpkin|Radish|Red Cabbage|Tea Leaves|Tomato|Unmilled Rice|Wheat|Yam|Sweet Gem Berry|Truffle",
     "Context": "Global",
-    "Type": "Index",
     "DisplayName": "Plant Products Index",
     "CommodityDesc": "Plant Products",
     "ConsumesString": "IndustrialResourcesIndex|EquipmentIndex",
-    "SublevelFeederString": "FlowerMarket|FruitMarket|RarePlantsMarket|VegetablesMarket",
+    "VerticalIntegration": "FlowerMarket|FruitMarket|RarePlantsMarket|VegetablesMarket",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "AnimalMiscellaniesMarket",
     "CategoryCodeString": "-18|-14",
     "ItemNameString": "Duck Feather|Rabbit's Foot|Wool|Any Meats",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Animal Miscellanies Market",
     "CommodityDesc": "Animal Miscellanies",
     "ConsumesString": "WildGreensMarket",
-    "SublevelFeederString": "MarniesRanchBuyingEggsDairy|MarniesRanchBuyingFineAnimalProducts",
+    "VerticalIntegration": "MarniesRanchBuyingEggsDairy|MarniesRanchBuyingFineAnimalProducts",
     "RndWght": 3,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "AquaticMiscellaniesMarket",
     "CategoryCodeString": -23,
     "ItemNameString": "Clam|Coral|Nautilus Shell|Rainbow Shell|Roe|Sea Urchin|Squid Ink",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Aquatic Miscellanies Market",
     "CommodityDesc": "Aquatic Miscellanies",
     "ConsumesString": "SportFishingMarket",
-    "SublevelFeederString": "WillysFishShopBuyingFishOtherFinds",
+    "VerticalIntegration": "WillysFishShopBuyingFishOtherFinds",
     "RndWght": 3,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "ArtisanFoodsMarket",
     "CategoryCodeString": -26,
     "ItemNameString": "Aged Roe|Beer|Caviar|Cheese|Cloth|Dinosaur Mayonnaise|Duck Mayonnaise|Goat Cheese|Green Tea|Honey|Jelly|Juice|Mayonnaise|Mead|Pale Ale|Pickles|Truffle Oil|Void Mayonnaise|Wine",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Artisan Foods Market",
     "CommodityDesc": "Artisan Foods",
     "ConsumesString": "WildGreensMarket|VegetablesMarket|DairyMarket|EggMarket|FruitMarket|IngredientsMarket|SeafoodMarket|RarePlantsMarket",
-    "SublevelFeederString": "PierresGeneralStoreBuyingPreparedFoodsMeals",
+    "VerticalIntegration": "PierresGeneralStoreBuyingPreparedFoodsMeals",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "ArtisanLiquidsMarket",
     "CategoryCodeString": -27,
     "ItemNameString": "Maple Syrup|Oak Resin|Pine Tar",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Artisan Liquids Market",
     "CommodityDesc": "Artisan Liquids",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 2,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "ConstructionMaterialMarket",
     "CategoryCodeString": -16,
     "ItemNameString": "Battery Pack|Clay|Fiber|Hardwood|Stone|Wood",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Construction Material Market",
     "CommodityDesc": "Construction Material",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "RobinsCarpentrySellingConstructionMaterials",
+    "VerticalIntegration": "RobinsCarpentrySellingConstructionMaterials",
     "RndWght": 3,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "CraftGoodsMarket",
     "CategoryCodeString": -8,
     "ItemNameString": "Bomb|Cherry Bomb|Dwarvish Translation Guide|Gate|Hardwood Fence|Iridium Sprinkler|Iron Fence|Jack-O-Lantern|Mega Bomb|Quality Sprinkler|Sprinkler|Stone Fence|Wood Fence",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Craft Goods Market",
     "CommodityDesc": "Craft Goods",
     "ConsumesString": "MetalMarket|MonsterPartsMarket|RecyclablesMarket|ConstructionMaterialMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 3,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "DairyMarket",
     "CategoryCodeString": -6,
     "ItemNameString": "Goat Milk|L. Goat Milk|Large Milk|Milk",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Dairy Market",
     "CommodityDesc": "Dairy",
     "ConsumesString": "WildGreensMarket",
-    "SublevelFeederString": "MarniesRanchBuyingEggsDairy",
+    "VerticalIntegration": "MarniesRanchBuyingEggsDairy",
     "RndWght": 2,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "EggMarket",
     "CategoryCodeString": -5,
     "ItemNameString": "Duck Egg|Egg|Egg|Large Egg|Large Egg|Void Egg",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Egg Market",
     "CommodityDesc": "Egg",
     "ConsumesString": "WildGreensMarket",
-    "SublevelFeederString": "MarniesRanchBuyingEggsDairy",
+    "VerticalIntegration": "MarniesRanchBuyingEggsDairy",
     "RndWght": 2,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "FertilizerMarket",
     "CategoryCodeString": -19,
     "ItemNameString": "Basic Fertilizer|Basic Retaining Soil|Deluxe Speed-Gro|Quality Fertilizer|Quality Retaining Soil|Speed-Gro|Tree Fertilizer",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Fertilizer Market",
     "CommodityDesc": "Fertilizer",
     "ConsumesString": "WildGreensMarket",
-    "SublevelFeederString": "PierresGeneralStoreSellingSeedFertilizer",
+    "VerticalIntegration": "PierresGeneralStoreSellingSeedFertilizer",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "FlowerMarket",
     "CategoryCodeString": -80,
     "ItemNameString": "Blue Jazz|Crocus|Fairy Rose|Poppy|Summer Spangle|Sunflower|Sweet Pea|Tulip",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Flower Market",
     "CommodityDesc": "Flower",
     "ConsumesString": "SeedMarket|FertilizerMarket",
-    "SublevelFeederString": "PierresGeneralStoreBuyingWildGreensFlowers",
+    "VerticalIntegration": "PierresGeneralStoreBuyingWildGreensFlowers",
     "RndWght": 4,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "FruitMarket",
     "CategoryCodeString": -79,
     "ItemNameString": "Ancient Fruit|Apple|Apricot|Blackberry|Blueberry|Cactus Fruit|Cherry|Coconut|Cranberries|Crystal Fruit|Grape|Hot Pepper|Melon|Orange|Peach|Pomegranate|Rhubarb|Salmonberry|Spice Berry|Starfruit|Strawberry|Wild Plum",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Fruit Market",
     "CommodityDesc": "Fruit",
     "ConsumesString": "SeedMarket|FertilizerMarket",
-    "SublevelFeederString": "PierresGeneralStoreBuyingFruitsVegetables",
+    "VerticalIntegration": "PierresGeneralStoreBuyingFruitsVegetables",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "GemMarket",
     "CategoryCodeString": -2,
     "ItemNameString": "Amethyst|Aquamarine|Diamond|Earth Crystal|Emerald|Fire Quartz|Frozen Tear|Jade|Prismatic Shard|Quartz|Ruby|Topaz",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Gem Market",
     "CommodityDesc": "Gem",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "ClintsBlacksmithSupplyBuyingPreciousStones",
+    "VerticalIntegration": "ClintsBlacksmithSupplyBuyingPreciousStones",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "IngredientsMarket",
     "CategoryCodeString": -25,
     "ItemNameString": "Wheat Flour|Rice|Oil|Vinegar",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Ingredients Market",
     "CommodityDesc": "Ingredients",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "PierresGeneralStoreSellingFoodPrepItems",
+    "VerticalIntegration": "PierresGeneralStoreSellingFoodPrepItems",
     "RndWght": 3,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "MetalMarket",
     "CategoryCodeString": -15,
     "ItemNameString": "Coal|Copper Bar|Copper Ore|Gold Bar|Gold Ore|Iridium Bar|Iridium Ore|Iron Bar|Iron Ore|Refined Quartz",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Metal Market",
     "CommodityDesc": "Metal",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "ClintsBlacksmithSupplySellingMetals",
+    "VerticalIntegration": "ClintsBlacksmithSupplySellingMetals",
     "RndWght": 4,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "MonsterPartsMarket",
     "CategoryCodeString": -28,
     "ItemNameString": "Bat Wing|Bug Meat|Slime|Solar Essence|Void Essence",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Monster Parts Market",
     "CommodityDesc": "Monster Parts",
     "ConsumesString": "PersonalDefenseMarket",
-    "SublevelFeederString": "TheAdventurersGuildBuyingMonsterParts",
+    "VerticalIntegration": "TheAdventurersGuildBuyingMonsterParts",
     "RndWght": 2,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "OutdoorDecorMarket",
     "CategoryCodeString": -24,
     "ItemNameString": "Brick Floor|Cobblestone Path|Crystal Floor|Crystal Path|Gravel Path|Stepping Stone Path|Stone Floor|Straw Floor|Tea Set|Weathered Floor|Wood Floor|Wood Path",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Outdoor Decor Market",
     "CommodityDesc": "Outdoor Decor",
     "ConsumesString": "ConstructionMaterialMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "PersonalDefenseMarket",
     "CategoryCodeString": "-96|-98",
     "ItemNameString": "Any Rings|Any Weapons",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Personal Defense Market",
     "CommodityDesc": "Personal Defense Gear",
     "ConsumesString": "MetalMarket|GemMarket|RareStonesMarket",
-    "SublevelFeederString": "TheAdventurersGuildSellingWarriorGear",
+    "VerticalIntegration": "TheAdventurersGuildSellingWarriorGear",
     "RndWght": 2,
-    "Tags": "Selling"
+    "TagsString": "Selling|SupplyDemand"
   },
   {
     "InternalToken": "PreparedMealsMarket",
     "CategoryCodeString": -7,
     "ItemNameString": "Algae Soup|Artichoke Dip|Autumn's Bounty|Baked Fish|Bean Hotpot|Blackberry Cobbler|Blueberry Tart|Bread|Bruschetta|Carp Surprise|Cheese Cauliflower|Chocolate Cake|Chowder|Coleslaw|Complete Breakfast|Cookie|Crab Cakes|Cranberry Candy|Cranberry Sauce|Crispy Bass|Dish O' The Sea|Eggplant Parmesan|Escargot|Farmer's Lunch|Fiddlehead Risotto|Fish Stew|Fish Taco|Fried Calamari|Fried Eel|Fried Egg|Fried Mushroom|Fruit Salad|Glazed Yams|Hashbrowns|Ice Cream|Life Elixir|Lobster Bisque|Lucky Lunch|Magic Rock Candy|Maki Roll|Maple Bar|Miner's Treat|Oil of Garlic|Omelet|Pale Broth|Pancakes|Parsnip Soup|Pepper Poppers|Pink Cake|Pizza|Plum Pudding|Poppyseed Muffin|Pumpkin Pie|Pumpkin Soup|Radish Salad|Red Plate|Rhubarb Pie|Rice Pudding|Roasted Hazelnuts|Roots Platter|Salad|Salmon Dinner|Sashimi|Seafoam Pudding|Shrimp Cocktail|Spaghetti|Spicy Eel|Stir Fry|Strange Bun|Stuffing|Super Meal|Survival Burger|Tom Kha Soup|Tortilla|Triple Shot Espresso|Trout Soup|Vegetable Medley",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Prepared Meals Market",
     "CommodityDesc": "Prepared Meals",
     "ConsumesString": "DairyMarket|EggMarket|FruitMarket|IngredientsMarket|RarePlantsMarket|SeafoodMarket|VegetablesMarket|WildGreensMarket",
-    "SublevelFeederString": "PierresGeneralStoreBuyingPreparedFoodsMeals",
+    "VerticalIntegration": "PierresGeneralStoreBuyingPreparedFoodsMeals",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "RarePlantsMarket",
     "CategoryCodeString": -17,
     "ItemNameString": "Sweet Gem Berry|Truffle",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Rare Plants Market",
     "CommodityDesc": "Rare Plants",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "PierresGeneralStoreBuyingFruitsVegetables",
+    "VerticalIntegration": "PierresGeneralStoreBuyingFruitsVegetables",
     "RndWght": 2,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "RareStonesMarket",
     "CategoryCodeString": -12,
     "ItemNameString": "Aerinite|Alamite|Baryte|Basalt|Bixite|Calcite|Celestine|Dolomite|Esperite|Fairy Stone|Fire Opal|Fluorapatite|Geminite|Ghost Crystal|Granite|Helvite|Hematite|Jagoite|Jamborite|Jasper|Kyanite|Lemon Stone|Limestone|Lunarite|Malachite|Marble|Mudstone|Nekoite|Neptunite|Obsidian|Ocean Stone|Opal|Orpiment|Petrified Slime|Pyrite|Sandstone|Slate|Soapstone|Star Shards|Thunder Egg|Tigerseye",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Rare Stones Market",
     "CommodityDesc": "Rare Stones",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "ClintsBlacksmithSupplyBuyingPreciousStones",
+    "VerticalIntegration": "ClintsBlacksmithSupplyBuyingPreciousStones",
     "RndWght": 3,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "RecyclablesMarket",
     "CategoryCodeString": -20,
     "ItemNameString": "Broken CD|Broken Glasses|Driftwood|Joja Cola|Rotten Plant|Rotten Plant|Soggy Newspaper|Trash",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Recyclables Market",
     "CommodityDesc": "Recyclables",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 1,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "SeafoodMarket",
     "CategoryCodeString": -4,
     "ItemNameString": "Albacore|Anchovy|Angler|Blobfish|Bream|Bullhead|Carp|Catfish|Chub|Cockle|Crab|Crayfish|Crimsonfish|Dorado|Eel|Flounder|Ghostfish|Glacierfish|Halibut|Herring|Ice Pip|Largemouth Bass|Lava Eel|Legend|Lingcod|Lobster|Midnight Carp|Midnight Squid|Mussel|Mutant Carp|Octopus|Oyster|Perch|Periwinkle|Pike|Pufferfish|Rainbow Trout|Red Mullet|Red Snapper|Salmon|Sandfish|Sardine|Scorpion Carp|Sea Cucumber|Shad|Shrimp|Slimejack|Smallmouth Bass|Snail|Spook Fish|Squid|Stonefish|Sturgeon|Sunfish|Super Cucumber|Tiger Trout|Tilapia|Tuna|Void Salmon|Walleye|Woodskip",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Seafood Market",
     "CommodityDesc": "Seafood",
     "ConsumesString": "SportFishingMarket",
-    "SublevelFeederString": "WillysFishShopBuyingFishOtherFinds",
+    "VerticalIntegration": "WillysFishShopBuyingFishOtherFinds",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "SeedMarket",
     "CategoryCodeString": -74,
     "ItemNameString": "Acorn|Amaranth Seeds|Ancient Seeds|Apple Sapling|Apricot Sapling|Artichoke Seeds|Bean Starter|Beet Seeds|Blueberry Seeds|Bok Choy Seeds|Cactus Seeds|Cauliflower Seeds|Cherry Sapling|Coffee Bean|Corn Seeds|Cranberry Seeds|Eggplant Seeds|Fairy Seeds|Fall Seeds|Garlic Seeds|Grape Starter|Hops Starter|Jazz Seeds|Kale Seeds|Maple Seed|Melon Seeds|Mixed Seeds|Orange Sapling|Parsnip Seeds|Peach Sapling|Pepper Seeds|Pine Cone|Pomegranate Sapling|Poppy Seeds|Potato Seeds|Pumpkin Seeds|Radish Seeds|Rare Seed|Red Cabbage Seeds|Rhubarb Seeds|Rice Shoot|Spangle Seeds|Spring Seeds|Starfruit Seeds|Strawberry Seeds|Summer Seeds|Sunflower Seeds|Tea Sapling|Tomato Seeds|Tulip Bulb|Wheat Seeds|Winter Seeds|Yam Seeds",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Seed Market",
     "CommodityDesc": "Seed",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "PierresGeneralStoreSellingSeedFertilizer",
+    "VerticalIntegration": "PierresGeneralStoreSellingSeedFertilizer",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "SportFishingMarket",
     "CategoryCodeString": "-22|-21",
     "ItemNameString": "Barbed Hook|Cork Bobber|Dressed Spinner|Lead Bobber|Spinner|Trap Bobber|Treasure Hunter|Bait|Magnet|Wild Bait",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Sport Fishing Market",
     "CommodityDesc": "Sport Fishing Gear",
     "ConsumesString": "MetalMarket|MonsterPartsMarket|RecyclablesMarket|ConstructionMaterialMarket",
-    "SublevelFeederString": "WillysFishShopSellingBaitTackle",
+    "VerticalIntegration": "WillysFishShopSellingBaitTackle",
     "RndWght": 4,
-    "Tags": "Selling"
+    "TagsString": "Selling|SupplyDemand"
   },
   {
     "InternalToken": "VegetablesMarket",
     "CategoryCodeString": -75,
     "ItemNameString": "Amaranth|Artichoke|Beet|Bok Choy|Cauliflower|Corn|Eggplant|Fiddlehead Fern|Garlic|Green Bean|Hops|Kale|Parsnip|Potato|Pumpkin|Radish|Red Cabbage|Tea Leaves|Tomato|Unmilled Rice|Wheat|Yam",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Vegetables Market",
     "CommodityDesc": "Vegetables",
     "ConsumesString": "SeedMarket|FertilizerMarket",
-    "SublevelFeederString": "PierresGeneralStoreBuyingFruitsVegetables",
+    "VerticalIntegration": "PierresGeneralStoreBuyingFruitsVegetables",
     "RndWght": 5,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "WildGreensMarket",
     "CategoryCodeString": -81,
     "ItemNameString": "Cave Carrot|Chanterelle|Common Mushroom|Daffodil|Dandelion|Hazelnut|Holly|Leek|Morel|Purple Mushroom|Red Mushroom|Sap|Snow Yam|Spring Onion|Wild Horseradish|Winter Root",
     "Context": "National",
-    "Type": "Market",
     "DisplayName": "Wild Greens Market",
     "CommodityDesc": "Wild Greens",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "PierresGeneralStoreBuyingWildGreensFlowers",
+    "VerticalIntegration": "PierresGeneralStoreBuyingWildGreensFlowers",
     "RndWght": 4,
-    "Tags": "Buying|Selling"
+    "TagsString": "Buying|Selling|SupplyDemand"
   },
   {
     "InternalToken": "ClintsBlacksmithSupplyBuyingPreciousStones",
     "CategoryCodeString": "-12|-2",
     "ItemNameString": "Aerinite|Alamite|Baryte|Basalt|Bixite|Calcite|Celestine|Dolomite|Esperite|Fairy Stone|Fire Opal|Fluorapatite|Geminite|Ghost Crystal|Granite|Helvite|Hematite|Jagoite|Jamborite|Jasper|Kyanite|Lemon Stone|Limestone|Lunarite|Malachite|Marble|Mudstone|Nekoite|Neptunite|Obsidian|Ocean Stone|Opal|Orpiment|Petrified Slime|Pyrite|Sandstone|Slate|Soapstone|Star Shards|Thunder Egg|Tigerseye|Amethyst|Aquamarine|Diamond|Earth Crystal|Emerald|Fire Quartz|Frozen Tear|Jade|Prismatic Shard|Quartz|Ruby|Topaz",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Clint’s Blacksmith Supply",
     "CommodityDesc": "Precious Stones",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "ClintsBlacksmithSupplySellingMetals",
     "CategoryCodeString": -15,
     "ItemNameString": "Coal|Copper Bar|Copper Ore|Gold Bar|Gold Ore|Iridium Bar|Iridium Ore|Iron Bar|Iron Ore|Refined Quartz",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Clint’s Blacksmith Supply",
     "CommodityDesc": "Metals",
     "ConsumesString": "MetalMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Selling"
+    "TagsString": "Selling"
   },
   {
     "InternalToken": "MarniesRanchBuyingEggsDairy",
     "CategoryCodeString": "-6|-5",
     "ItemNameString": "Goat Milk|L. Goat Milk|Large Milk|Milk|Duck Egg|Egg|Egg|Large Egg|Large Egg|Void Egg",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Marnie’s Ranch",
     "CommodityDesc": "Eggs & Dairy",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "MarniesRanchBuyingFineAnimalProducts",
     "CategoryCodeString": "-18|-14",
     "ItemNameString": "Duck Feather|Rabbit's Foot|Wool|Any Meats",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Marnie’s Ranch",
     "CommodityDesc": "Fine Animal Products",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "PierresGeneralStoreBuyingFruitsVegetables",
     "CategoryCodeString": "-79|-75|-17",
     "ItemNameString": "Ancient Fruit|Apple|Apricot|Blackberry|Blueberry|Cactus Fruit|Cherry|Coconut|Cranberries|Crystal Fruit|Grape|Hot Pepper|Melon|Orange|Peach|Pomegranate|Rhubarb|Salmonberry|Spice Berry|Starfruit|Strawberry|Wild Plum|Amaranth|Artichoke|Beet|Bok Choy|Cauliflower|Corn|Eggplant|Fiddlehead Fern|Garlic|Green Bean|Hops|Kale|Parsnip|Potato|Pumpkin|Radish|Red Cabbage|Tea Leaves|Tomato|Unmilled Rice|Wheat|Yam|Sweet Gem Berry|Truffle",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Pierre’s General Store",
     "CommodityDesc": "Fruits & Vegetables",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "PierresGeneralStoreBuyingPreparedFoodsMeals",
     "CategoryCodeString": "-26|-7",
     "ItemNameString": "Aged Roe|Beer|Caviar|Cheese|Cloth|Dinosaur Mayonnaise|Duck Mayonnaise|Goat Cheese|Green Tea|Honey|Jelly|Juice|Mayonnaise|Mead|Pale Ale|Pickles|Truffle Oil|Void Mayonnaise|Wine|Algae Soup|Artichoke Dip|Autumn's Bounty|Baked Fish|Bean Hotpot|Blackberry Cobbler|Blueberry Tart|Bread|Bruschetta|Carp Surprise|Cheese Cauliflower|Chocolate Cake|Chowder|Coleslaw|Complete Breakfast|Cookie|Crab Cakes|Cranberry Candy|Cranberry Sauce|Crispy Bass|Dish O' The Sea|Eggplant Parmesan|Escargot|Farmer's Lunch|Fiddlehead Risotto|Fish Stew|Fish Taco|Fried Calamari|Fried Eel|Fried Egg|Fried Mushroom|Fruit Salad|Glazed Yams|Hashbrowns|Ice Cream|Life Elixir|Lobster Bisque|Lucky Lunch|Magic Rock Candy|Maki Roll|Maple Bar|Miner's Treat|Oil of Garlic|Omelet|Pale Broth|Pancakes|Parsnip Soup|Pepper Poppers|Pink Cake|Pizza|Plum Pudding|Poppyseed Muffin|Pumpkin Pie|Pumpkin Soup|Radish Salad|Red Plate|Rhubarb Pie|Rice Pudding|Roasted Hazelnuts|Roots Platter|Salad|Salmon Dinner|Sashimi|Seafoam Pudding|Shrimp Cocktail|Spaghetti|Spicy Eel|Stir Fry|Strange Bun|Stuffing|Super Meal|Survival Burger|Tom Kha Soup|Tortilla|Triple Shot Espresso|Trout Soup|Vegetable Medley",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Pierre’s General Store",
     "CommodityDesc": "Prepared Foods & Meals",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "PierresGeneralStoreBuyingWildGreensFlowers",
     "CategoryCodeString": "-81|-80",
     "ItemNameString": "Cave Carrot|Chanterelle|Common Mushroom|Daffodil|Dandelion|Hazelnut|Holly|Leek|Morel|Purple Mushroom|Red Mushroom|Sap|Snow Yam|Spring Onion|Wild Horseradish|Winter Root|Blue Jazz|Crocus|Fairy Rose|Poppy|Summer Spangle|Sunflower|Sweet Pea|Tulip",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Pierre’s General Store",
     "CommodityDesc": "Wild Greens & Flowers",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "PierresGeneralStoreSellingFoodPrepItems",
     "CategoryCodeString": -25,
     "ItemNameString": "Wheat Flour|Rice|Oil|Vinegar",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Pierre’s General Store",
     "CommodityDesc": "Food Prep Items",
     "ConsumesString": "IngredientsMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 2,
-    "Tags": "Selling"
+    "TagsString": "Selling"
   },
   {
     "InternalToken": "PierresGeneralStoreSellingSeedFertilizer",
     "CategoryCodeString": "-74|-19",
     "ItemNameString": "Acorn|Amaranth Seeds|Ancient Seeds|Apple Sapling|Apricot Sapling|Artichoke Seeds|Bean Starter|Beet Seeds|Blueberry Seeds|Bok Choy Seeds|Cactus Seeds|Cauliflower Seeds|Cherry Sapling|Coffee Bean|Corn Seeds|Cranberry Seeds|Eggplant Seeds|Fairy Seeds|Fall Seeds|Garlic Seeds|Grape Starter|Hops Starter|Jazz Seeds|Kale Seeds|Maple Seed|Melon Seeds|Mixed Seeds|Orange Sapling|Parsnip Seeds|Peach Sapling|Pepper Seeds|Pine Cone|Pomegranate Sapling|Poppy Seeds|Potato Seeds|Pumpkin Seeds|Radish Seeds|Rare Seed|Red Cabbage Seeds|Rhubarb Seeds|Rice Shoot|Spangle Seeds|Spring Seeds|Starfruit Seeds|Strawberry Seeds|Summer Seeds|Sunflower Seeds|Tea Sapling|Tomato Seeds|Tulip Bulb|Wheat Seeds|Winter Seeds|Yam Seeds|Basic Fertilizer|Basic Retaining Soil|Deluxe Speed-Gro|Quality Fertilizer|Quality Retaining Soil|Speed-Gro|Tree Fertilizer",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Pierre’s General Store",
     "CommodityDesc": "Seed & Fertilizer",
     "ConsumesString": "FertilizerMarket|SeedMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Selling"
+    "TagsString": "Selling"
   },
   {
     "InternalToken": "RobinsCarpentrySellingConstructionMaterials",
     "CategoryCodeString": -16,
     "ItemNameString": "Battery Pack|Clay|Fiber|Hardwood|Stone|Wood",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Robin’s Carpentry",
     "CommodityDesc": "Construction Materials",
     "ConsumesString": "ConstructionMaterialMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 3,
-    "Tags": "Selling"
+    "TagsString": "Selling"
   },
   {
     "InternalToken": "TheAdventurersGuildBuyingMonsterParts",
     "CategoryCodeString": -28,
     "ItemNameString": "Bat Wing|Bug Meat|Slime|Solar Essence|Void Essence",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "The Adventurer’s Guild",
     "CommodityDesc": "Monster Parts",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 2,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "TheAdventurersGuildSellingWarriorGear",
     "CategoryCodeString": "-96|-98",
     "ItemNameString": "Any Rings|Any Weapons",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "The Adventurer’s Guild",
     "CommodityDesc": "Warrior Gear",
     "ConsumesString": "PersonalDefenseMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 1,
-    "Tags": "Selling"
+    "TagsString": "Selling"
   },
   {
     "InternalToken": "WillysFishShopBuyingFishOtherFinds",
     "CategoryCodeString": "-23|-4",
     "ItemNameString": "Clam|Coral|Nautilus Shell|Rainbow Shell|Roe|Sea Urchin|Squid Ink|Albacore|Anchovy|Angler|Blobfish|Bream|Bullhead|Carp|Catfish|Chub|Cockle|Crab|Crayfish|Crimsonfish|Dorado|Eel|Flounder|Ghostfish|Glacierfish|Halibut|Herring|Ice Pip|Largemouth Bass|Lava Eel|Legend|Lingcod|Lobster|Midnight Carp|Midnight Squid|Mussel|Mutant Carp|Octopus|Oyster|Perch|Periwinkle|Pike|Pufferfish|Rainbow Trout|Red Mullet|Red Snapper|Salmon|Sandfish|Sardine|Scorpion Carp|Sea Cucumber|Shad|Shrimp|Slimejack|Smallmouth Bass|Snail|Spook Fish|Squid|Stonefish|Sturgeon|Sunfish|Super Cucumber|Tiger Trout|Tilapia|Tuna|Void Salmon|Walleye|Woodskip",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Willy’s Fish Shop",
     "CommodityDesc": "Fish & Other Finds",
     "ConsumesString": "NONE",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 5,
-    "Tags": "Buying"
+    "TagsString": "Buying"
   },
   {
     "InternalToken": "WillysFishShopSellingBaitTackle",
     "CategoryCodeString": "-22|-21",
     "ItemNameString": "Barbed Hook|Cork Bobber|Dressed Spinner|Lead Bobber|Spinner|Trap Bobber|Treasure Hunter|Bait|Magnet|Wild Bait",
     "Context": "Local",
-    "Type": "Vendor",
     "DisplayName": "Willy’s Fish Shop",
     "CommodityDesc": "Bait & Tackle",
     "ConsumesString": "SportFishingMarket",
-    "SublevelFeederString": "NONE",
+    "VerticalIntegration": "NONE",
     "RndWght": 4,
-    "Tags": "Selling"
+    "TagsString": "Selling"
   }
 ]
