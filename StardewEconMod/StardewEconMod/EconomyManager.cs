@@ -49,6 +49,9 @@ namespace StardewEconMod
         /// <summary>A record of the prices of objects as sold in a particular store.</summary>
         private Dictionary<string, int> storePriceRecord;
 
+        /// <summary>Lists and stores all markets created for the game.</summary>
+        private Dictionary<string, Market> AllMarketsDirectory;
+
         /// <summary>Stores unique keys of saveable data, keys written to json.</summary>
         public KeyList keyList;
 

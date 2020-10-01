@@ -45,7 +45,7 @@ namespace StardewEconMod
     /// <summary>
     /// Provides the basic framework for a market.
     /// </summary>
-    public abstract class AbstractMarket
+    public abstract class Market
     {
         /// <summary> A unique identifier and indexing string. </summary>
         public string InternalToken { get; set; }
@@ -56,8 +56,8 @@ namespace StardewEconMod
         /// <summary> Contains names of items governed by the market. </summary>
         public List<string> ItemNames { get; set; }
 
-        /// <summary> On what "level" (global, national, or local) the market operates. </summary>
-        public string Context { get; set; }
+        /// <summary> The tiered economic system (global, national, or local) in which the market operates. </summary>
+        public EconomicSystem EconomicContext { get; set; }
 
         /// <summary> The term for a market at its level (index, market, or vendor). </summary>
         public string Type { get; set; }
@@ -68,11 +68,14 @@ namespace StardewEconMod
         /// <summary> The term for the kind of item traded in this market. </summary>
         public string CommodityDesc { get; set; }
 
-        /// <summary> List of unique identifiers for markets that provide inputs to this market. </summary>
-        public List<string> MarketsConsumed { get; set; }
+        /// <summary> List of markets that provide inputs to this market. </summary>
+        public List<Market> MarketsConsumed { get; set; }
 
-        /// <summary> List of unique identifiers of markets on the level "below" this market deal in the same goods. </summary>
-        public List<string> VerticallyIntegratedMarkets { get; set; }
+        /// <summary> List of markets on the level "below" this market deal in the same goods. </summary>
+        public List<Market> VerticallyIntegratedMarkets { get; set; }
+
+        /// <summary> The "parent" market one level "above" this market that deals in the same goods. </summary>
+        public Market IntegratingMarket { get; set; }
 
         /// <summary> The likelihood of this market having a random flux event. </summary>
         public int RandomWeight { get; set; }
